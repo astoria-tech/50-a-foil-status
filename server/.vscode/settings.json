@@ -1,0 +1,9 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#5207F2",
+    "titleBar.inactiveBackground": "#5207F2CC"
+  }
+}

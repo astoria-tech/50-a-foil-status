@@ -1,0 +1,29 @@
+{
+  "name": "node-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon ./bin/www",
+    "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "express-async-handler": "^1.1.4",
+    "helmet": "^4.0.0",
+    "http-errors": "^1.8.0",
+    "mocha": "^8.1.1",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.4",
+    "pg": "^8.3.0",
+    "sequelize": "^6.3.4"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "sequelize-cli": "^6.2.0"
+  }
+}
