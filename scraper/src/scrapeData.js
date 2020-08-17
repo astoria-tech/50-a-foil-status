@@ -1,21 +1,7 @@
 const puppeteer = require("puppeteer");
-const writeOutput = require("./writeOutput");
 
-const init = async () => {
-  try {
-    const foiaIds = await getFoiaIdsByPage(
-      "https://www.muckrock.com/foi/list/?page=1&per_page=100&projects=778"
-    );
-
-    console.log(`${foiaIds.length} ids collected.`);
-
-    writeOutput(foiaIds);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const getFoiaIdsByPage = async (url, foiaIds = []) => {
+const getDataByPage = async (url, foiaIds = []) => {
+  console.log(`Getting data from ${url} ...`);
   const response = await getData(url);
 
   const accumlatedFoiaIds = foiaIds.concat(response.foiaIds);
@@ -23,7 +9,7 @@ const getFoiaIdsByPage = async (url, foiaIds = []) => {
   if (!response.nextPageLink) {
     return accumlatedFoiaIds;
   } else {
-    return getFoiaIdsByPage(response.nextPageLink, accumlatedFoiaIds);
+    return getDataByPage(response.nextPageLink, accumlatedFoiaIds);
   }
 };
 
@@ -39,12 +25,23 @@ const getData = async (url) => {
   const data = await page.evaluate(() => {
     let links = document.querySelectorAll(".st-val > .bold");
 
-    let foiaIds = Array.from(links).map((anchorEl) =>
-      anchorEl.href
-        .slice(anchorEl.href.lastIndexOf("-") + 1)
+    let foiaIds = Array.from(links).map((anchorEl) => {
+      const regex = /\d+$/;
+
+      const [jurisdictionId, foiaId] = anchorEl.href
         .split("/")
-        .join("")
-    );
+        .filter((el) => regex.test(el))
+        .map((el) => regex.exec(el)[0]);
+
+      return {
+        foiaReq: {
+          id: foiaId,
+        },
+        jurisdiction: {
+          id: jurisdictionId,
+        },
+      };
+    });
 
     let nextPage = Array.from(
       document.querySelector(".pagination__links").querySelectorAll("a")
@@ -62,4 +59,4 @@ const getData = async (url) => {
   return data;
 };
 
-init();
+module.exports = getDataByPage;
