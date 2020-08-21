@@ -3,19 +3,22 @@ const addMetadata = require("./addMetadata");
 const writeOutput = require("./writeOutput");
 
 const init = async () => {
+  const firstPageUrl =
+    "https://www.muckrock.com/foi/list/?per_page=100&projects=778&page=1";
+
   try {
-    const foiaRequestIdList = await getDataByPage(
-      "https://www.muckrock.com/foi/list/?per_page=100&projects=778&page=1"
-    );
+    const foiaRequestIdList = await getDataByPage(firstPageUrl);
 
     console.log(`IDs for ${foiaRequestIdList.length} FOIA requests collected.`);
 
-    const foiaRequestMetadataList = await addMetadata(foiaRequestIdList);
+    const dataStore = await addMetadata(foiaRequestIdList);
 
-    writeOutput(foiaRequestMetadataList);
-    // writeOutput(foiaRequestIdList);
+    await writeOutput(dataStore);
+
+    process.exit();
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 };
 

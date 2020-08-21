@@ -6,7 +6,7 @@ const getDataByPage = async (url, foiaIds = []) => {
 
   const accumlatedFoiaIds = foiaIds.concat(response.foiaIds);
 
-  if (!response.nextPageLink) {
+  if (!response.nextPageLink || process.env.NODE_ENV === "debug") {
     return accumlatedFoiaIds;
   } else {
     return getDataByPage(response.nextPageLink, accumlatedFoiaIds);

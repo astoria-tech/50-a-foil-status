@@ -3,26 +3,28 @@ const axios = require("axios");
 axios.defaults.baseURL = "https://www.muckrock.com/api_v1";
 axios.defaults.headers["Content-Type"] = "application/json";
 
-const addMetadata = async (foiaRequestIdList) => {
-  // foiaRequestIdList = foiaRequestIdList.slice(0, 3);
+const addMetadata = async (foiaList) => {
+  process.env.NODE_ENV === "debug" && (foiaList = foiaList.slice(0, 3));
 
-  foiaRequestIdList = await addRequestMetadata(foiaRequestIdList);
-  foiaRequestIdList = await addAgencyName(foiaRequestIdList);
-  foiaRequestIdList = await addJurisdictionName(foiaRequestIdList);
+  foiaList = await addRequestMetadata(foiaList);
+  foiaList = await addAgencyName(foiaList);
+  foiaList = await addJurisdictionName(foiaList);
 
-  return foiaRequestIdList;
+  dataStore = await composeDataStore(foiaList);
+
+  return dataStore;
 };
 
-const addRequestMetadata = async (list) => {
+const addRequestMetadata = async (foiaList) => {
   let result = [];
-  for (let i = 0; i < list.length; i++) {
-    console.log(`Getting data for foia req ${i + 1}/${list.length}`);
+  for (let i = 0; i < foiaList.length; i++) {
+    console.log(`Getting data for foia req ${i + 1}/${foiaList.length}`);
 
     await delay(1000);
 
-    const response = await axios.get(`/foia/${list[i].foiaReq.id}`);
+    const response = await axios.get(`/foia/${foiaList[i].foiaReq.id}`);
 
-    const { foiaReq, jurisdiction } = list[i];
+    const { foiaReq, jurisdiction } = foiaList[i];
 
     result.push({
       foiaReq: {
@@ -43,15 +45,15 @@ const addRequestMetadata = async (list) => {
   return result;
 };
 
-const addAgencyName = async (list) => {
+const addAgencyName = async (foiaList) => {
   let result = [];
-  for (let i = 0; i < list.length; i++) {
-    console.log(`Getting data for agency ${i + 1}/${list.length}`);
+  for (let i = 0; i < foiaList.length; i++) {
+    console.log(`Getting data for agency ${i + 1}/${foiaList.length}`);
     await delay(1000);
 
-    const response = await axios.get(`/agency/${list[i].agency.id}`);
+    const response = await axios.get(`/agency/${foiaList[i].agency.id}`);
 
-    const { foiaReq, agency, jurisdiction } = list[i];
+    const { foiaReq, agency, jurisdiction } = foiaList[i];
 
     result.push({
       foiaReq,
@@ -66,17 +68,17 @@ const addAgencyName = async (list) => {
   return result;
 };
 
-const addJurisdictionName = async (list) => {
+const addJurisdictionName = async (foiaList) => {
   let result = [];
-  for (let i = 0; i < list.length; i++) {
-    console.log(`Getting data for jurisdiction ${i + 1}/${list.length}`);
+  for (let i = 0; i < foiaList.length; i++) {
+    console.log(`Getting data for jurisdiction ${i + 1}/${foiaList.length}`);
     await delay(1000);
 
     const response = await axios.get(
-      `/jurisdiction/${list[i].jurisdiction.id}`
+      `/jurisdiction/${foiaList[i].jurisdiction.id}`
     );
 
-    const { foiaReq, agency, jurisdiction } = list[i];
+    const { foiaReq, agency, jurisdiction } = foiaList[i];
 
     result.push({
       foiaReq,
@@ -89,6 +91,17 @@ const addJurisdictionName = async (list) => {
   }
 
   return result;
+};
+
+const composeDataStore = (foiaList) => {
+  const meta = {
+    runDate: Date.now(),
+  };
+
+  return {
+    meta,
+    foiaList,
+  };
 };
 
 const delay = (interval) =>

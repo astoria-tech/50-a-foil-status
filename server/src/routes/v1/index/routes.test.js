@@ -13,9 +13,19 @@ describe("index routes", function () {
   });
 
   describe("GET /v1/", () => {
-    it("the response should be an array", async function () {
+    it("the response should be an object", async function () {
       const res = await requester.get("/v1/");
-      expect(res.body).to.be.an("array");
+      expect(res.body).to.be.an("object");
+    });
+
+    it("the response should have a meta property", async function () {
+      const res = await requester.get("/v1/");
+      expect(res.body).to.have.property("meta");
+    });
+
+    it("the response should have a foiaList property", async function () {
+      const res = await requester.get("/v1/");
+      expect(res.body).to.have.property("foiaList");
     });
   });
 
