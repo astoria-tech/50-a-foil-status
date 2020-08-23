@@ -5,12 +5,14 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const helmet = require("helmet");
+const cors = require("cors");
 
 const app = express();
 app.set("query parser", "simple");
 
 process.env.NODE_ENV !== "test" && app.use(logger("dev"));
 app.use(helmet());
+app.use(cors(require("./config/cors")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
