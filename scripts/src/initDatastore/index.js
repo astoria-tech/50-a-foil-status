@@ -1,6 +1,6 @@
 const getDataByPage = require("./scrapeData");
 const addMetadata = require("./addMetadata");
-const writeOutput = require("./writeOutput");
+const writeOutput = require("../writeOutput");
 
 const init = async () => {
   const firstPageUrl =

@@ -1,8 +1,7 @@
 const fs = require("fs").promises;
-const path = require("path");
+const { DATASTORE_PATH: dirname } = require("../constants");
 
 const writeOutput = async (dataStore) => {
-  const dirname = path.join(__dirname, "../../datastore");
   const filename = `${dataStore.meta.runDate}.json`;
 
   try {
