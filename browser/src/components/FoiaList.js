@@ -7,7 +7,7 @@ const FoiaList = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3000/v1/")
+    fetch("http://localhost:3000/v1/latest")
       .then((data) => data.json())
       .then(setData)
       .catch(setError)

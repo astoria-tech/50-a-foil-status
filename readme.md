@@ -35,7 +35,7 @@ npm run dev
 
 Serves on port `3000`.
 
-Try it by sending a GET request to `localhost:3000/v1/`
+Try it by sending a GET request to `localhost:3000/v1/latest`
 
 ## Browser app setup
 
