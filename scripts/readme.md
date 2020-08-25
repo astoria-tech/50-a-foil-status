@@ -2,18 +2,26 @@
 
 ## Usage
 
-### Running the script
+### Creating your first datastore
+
+If you need to get data for the first time, these are the scripts for you:
 
 ```
-npm start         # Run scraper (run time: 22+ minutes)
-npm run debug     # Run scraper in debug mode (run time: < 1 minute)
+npm run datastore:init            # Run time: 22+ minutes; full dataset (424 records)
+npm run datastore:init:debug      # Run time: < 1 minute; small dataset (3 records)
 ```
 
-Debug mode will:
+Debug mode will show browser UI in case you need to debug the scraper.
 
-- Show browser UI in case you need to debug the scraper
-- Only pull a very small sampling of the total data a full script run would pull, shorting your wait time
+### Updating an existing datastore
+
+If you already have a datastore, the update script will copy the existing data, update any FOIA requests that have changed, and write a new copy of the JSON data. The previous datastore will remain untouched.
+
+```
+npm run datastore:update            # Run time: 7+ minutes; full dataset (424 records)
+npm run datastore:update:debug      # Run time: < 1 minute; small dataset (3 records)
+```
 
 ### Getting output
 
-Output is written to `./output`.
+Output is written to `../datastore`.

@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "debug": "NODE_ENV=debug node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "datastore:init": "node src/initDatastore/index.js",
+    "datastore:update": "node src/updateDatastore/index.js",
+    "datastore:init:debug": "NODE_ENV=debug node src/initDatastore/index.js",
+    "datastore:update:debug": "NODE_ENV=debug node src/updateDatastore/index.js"
   },
   "keywords": [],
   "author": "",

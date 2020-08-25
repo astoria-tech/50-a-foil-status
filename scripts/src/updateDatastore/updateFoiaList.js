@@ -3,8 +3,8 @@ const axios = require("axios");
 axios.defaults.baseURL = "https://www.muckrock.com/api_v1";
 axios.defaults.headers["Content-Type"] = "application/json";
 
-const updateFoiaList = async (prevData) => {
-  const { foiaList } = prevData;
+const updateFoiaList = async ({ foiaList }) => {
+  process.env.NODE_ENV === "debug" && (foiaList = foiaList.slice(0, 3));
 
   let updatedFoiaList = [];
   for (let i = 0; i < foiaList.length; i++) {
