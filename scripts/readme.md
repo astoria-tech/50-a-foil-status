@@ -22,6 +22,8 @@ npm run datastore:update            # Run time: 7+ minutes; full dataset (424 re
 npm run datastore:update:debug      # Run time: < 1 minute; small dataset (3 records)
 ```
 
+The current intention is that `npm run datastore:update` runs as a cron job every N hours, but this plan isn't fully fleshed out yet.
+
 ### Getting output
 
 Output is written to `../datastore`.
