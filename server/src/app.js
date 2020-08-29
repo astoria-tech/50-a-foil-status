@@ -1,3 +1,4 @@
+require("./datastore/scripts/cron")();
 require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
