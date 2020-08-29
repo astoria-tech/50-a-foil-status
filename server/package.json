@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development nodemon ./bin/www",
+    "start": "NODE_ENV=production node ./bin/www",
+    "dev": "NODE_ENV=development nodemon ./bin/www --ignore src/datastore/data",
     "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit",
     "datastore:init": "node src/datastore/scripts/initDatastore/index.js",
     "datastore:update": "node src/datastore/scripts/updateDatastore/index.js",

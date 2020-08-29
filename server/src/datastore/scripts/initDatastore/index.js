@@ -3,8 +3,7 @@ const addMetadata = require("./addMetadata");
 const writeOutput = require("../writeOutput");
 
 const init = async () => {
-  const firstPageUrl =
-    "https://www.muckrock.com/foi/list/?per_page=100&projects=778&page=1";
+  const firstPageUrl = "https://www.muckrock.com/foi/list/?per_page=100&projects=778&page=1";
 
   try {
     const foiaRequestIdList = await getDataByPage(firstPageUrl);
@@ -14,11 +13,8 @@ const init = async () => {
     const dataStore = await addMetadata(foiaRequestIdList);
 
     await writeOutput(dataStore);
-
-    process.exit();
   } catch (error) {
     console.log(error);
-    process.exit(1);
   }
 };
 

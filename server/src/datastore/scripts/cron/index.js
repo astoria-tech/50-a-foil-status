@@ -6,10 +6,10 @@ const initUpdateCronJob = () => {
 
   const cronExpr = process.env.NODE_ENV === "production" ? everyHour : everyOtherMinute;
 
-  console.log(cronExpr);
+  console.log(`Cron job initiated for internal "${cronExpr}" for NODE_ENV ${process.env.NODE_ENV}`);
 
   cron.schedule(cronExpr, () => {
-    console.log("running a task every minute");
+    console.log("Running cron job...");
     require("../updateDatastore/");
   });
 };
