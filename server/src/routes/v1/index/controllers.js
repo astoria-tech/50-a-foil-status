@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 
 exports.getLatestData = asyncHandler(async (req, res, next) => {
-  const dir = path.join(__dirname, "../../../../../datastore/");
+  const dir = path.join(__dirname, "../../../datastore/data");
 
   const filename = await _getMostRecentFilename(dir);
   if (!filename) throw createError(500, `Unable to get latest datastore filename`);

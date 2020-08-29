@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./bin/www",
-    "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit"
+    "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit",
+    "datastore:init": "node src/datastore/scripts/initDatastore/index.js",
+    "datastore:update": "node src/datastore/scripts/updateDatastore/index.js",
+    "datastore:init:debug": "NODE_ENV=debug node src/datastore/scripts/initDatastore/index.js",
+    "datastore:update:debug": "NODE_ENV=debug node src/datastore/scripts/updateDatastore/index.js"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -21,6 +25,7 @@
     "morgan": "~1.9.1",
     "nodemon": "^2.0.4",
     "pg": "^8.3.0",
+    "puppeteer": "^5.2.1",
     "sequelize": "^6.3.4"
   },
   "devDependencies": {
