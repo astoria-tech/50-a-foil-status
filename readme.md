@@ -7,20 +7,21 @@ This readme is still really rough. Let's improve it together ☆
 **Official way (22+ minute wait time)**
 
 ```shell
-cd scripts
+cd server
 npm i
 npm run datastore:init
 ```
 
-See the readme in [the `scripts` directory](./scripts/readme.md) for details on what the datastore scripts do.
+See the readme in [the `server` directory](./server/readme.md) for details on what the datastore scripts do.
 
 **Cheating**
 
 Ok, so you don't want to wait that long! You can do this instead:
 
 ```shell
-mkdir datastore
-cp scripts/referenceData/fullDatastore-NNNNNNNNNNNN.json ./datastore/NNNNNNNNNNNN.json # The file rename is important
+cd server
+mkdir src/datastore/data
+cp src/datastore/referenceData/fullDatastore-NNNNNNNNNNNN.json src/datastore/data/NNNNNNNNNNNN.json # The file rename is important
 ```
 
 This mimicks what the `npm run datastore:init` script will do, but with reference data already stored within the repo.
@@ -29,7 +30,7 @@ This mimicks what the `npm run datastore:init` script will do, but with referenc
 
 ```shell
 cd server
-npm i
+npm i # If you didn't already do this when setting up the datastore
 npm run dev
 ```
 
