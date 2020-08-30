@@ -14,7 +14,7 @@ const writeOutput = async (dataStore) => {
 
   try {
     await fs.writeFile(`${dirname}/${filename}`, JSON.stringify(dataStore));
-    console.log(`Output written to ${dirname}!`);
+    console.log(`Output written to ${dirname}/${filename}!`);
   } catch (error) {
     console.log("Unable to write error log file", error);
   }

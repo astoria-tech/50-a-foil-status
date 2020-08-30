@@ -10,7 +10,6 @@ const init = async () => {
     const newDataStore = composeUpdatedDataStore(updatedFoiaList);
 
     await writeOutput(newDataStore);
-    process.exit();
   } catch (error) {
     if (error.code === "ENOENT") {
       console.log(
@@ -19,7 +18,6 @@ const init = async () => {
     }
 
     console.log(error);
-    process.exit(1);
   }
 };
 

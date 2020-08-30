@@ -1,22 +1,22 @@
 const fs = require("fs").promises;
 const path = require("path");
-const { DATASTORE_PATH: dir } = require("../constants");
+const { DATASTORE_PATH: dirname } = require("../constants");
 
 const getPrevData = async () => {
-  const filename = await getMostRecentFilename(dir);
-  const dataStore = await fs.readFile(path.join(dir, filename), "utf8");
+  const filename = await getMostRecentFilename(dirname);
+  const dataStore = await fs.readFile(path.join(dirname, filename), "utf8");
   const prevData = JSON.parse(dataStore);
 
   return prevData;
 };
 
-const getMostRecentFilename = async (dir) => {
-  const filenames = await orderRecentFilenames(dir);
+const getMostRecentFilename = async (dirname) => {
+  const filenames = await orderRecentFilenames(dirname);
   return filenames ? filenames[0] : undefined;
 };
 
-const orderRecentFilenames = async (dir) => {
-  const filenamesList = await readFilenames(dir);
+const orderRecentFilenames = async (dirname) => {
+  const filenamesList = await readFilenames(dirname);
 
   const sortedFilenames = filenamesList.sort(
     (a, b) => b.split(".json").join("") - a.split(".json").join("")
