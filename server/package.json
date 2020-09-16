@@ -5,6 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./bin/www",
     "dev": "NODE_ENV=development nodemon ./bin/www --ignore src/datastore/data",
+    "dev:nocron": "NODE_ENV=development CRON=false nodemon ./bin/www --ignore src/datastore/data",
     "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit",
     "datastore:init": "node src/datastore/scripts/initDatastore/index.js",
     "datastore:update": "node src/datastore/scripts/updateDatastore/index.js",
@@ -28,7 +29,6 @@
     "node-cron": "^2.0.3",
     "nodemon": "^2.0.4",
     "pg": "^8.3.0",
-    "puppeteer": "^5.2.1",
     "sequelize": "^6.3.4"
   },
   "devDependencies": {
