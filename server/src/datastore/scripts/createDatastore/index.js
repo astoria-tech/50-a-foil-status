@@ -6,7 +6,7 @@ const createDatastore = async () => {
   console.log("Creating datastore...");
 
   const firstPageUrl =
-    "https://www.muckrock.com/api_v1/foia/?page_size=100&user=Officer_Accountability_NY";
+    "https://www.muckrock.com/api_v1/foia/?page_size=200&user=Officer_Accountability_NY";
 
   try {
     const foiaDataList = await getDataByPage(firstPageUrl);

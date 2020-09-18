@@ -15,7 +15,7 @@ const initUpdateCronJob = async () => {
 
 const setCronConfig = () => {
   const everyHour = "0 * * * *";
-  const everyFifteenMinutes = "*/15 * * * *";
+  const everyThirtyMinutes = "*/30 * * * *";
   const everyOtherMinute = "*/2 * * * *";
 
   let expression, envStr;
@@ -26,7 +26,7 @@ const setCronConfig = () => {
       break;
 
     case "development":
-      expression = process.env.DATA_LEVEL === "low" ? everyOtherMinute : everyFifteenMinutes;
+      expression = process.env.DATA_LEVEL === "low" ? everyOtherMinute : everyThirtyMinutes;
       envStr = `NODE_ENV=${process.env.NODE_ENV}; DATA_LEVEL=${process.env.DATA_LEVEL}`;
       break;
 
