@@ -2,7 +2,9 @@ const getDataByPage = require("./getDataByPage");
 const addMetadata = require("./addMetadata");
 const writeOutput = require("../writeOutput");
 
-const init = async () => {
+const createDatastore = async () => {
+  console.log("Creating datastore...");
+
   const firstPageUrl =
     "https://www.muckrock.com/api_v1/foia/?page_size=100&user=Officer_Accountability_NY";
 
@@ -16,4 +18,4 @@ const init = async () => {
   }
 };
 
-init();
+module.exports = createDatastore;

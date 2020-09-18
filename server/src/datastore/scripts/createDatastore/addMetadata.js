@@ -4,7 +4,7 @@ axios.defaults.baseURL = "https://www.muckrock.com/api_v1";
 axios.defaults.headers["Content-Type"] = "application/json";
 
 const addMetadata = async (foiaList) => {
-  process.env.NODE_ENV === "debug" && (foiaList = foiaList.slice(0, 3));
+  process.env.DATA_LEVEL === "low" && (foiaList = foiaList.slice(0, 3));
 
   foiaList = await addAgencyName(foiaList);
   foiaList = await addJurisdictionName(foiaList);

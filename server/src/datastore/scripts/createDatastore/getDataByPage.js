@@ -9,7 +9,7 @@ const getDataByPage = async (url, compositeDataList = []) => {
   compositeDataList = compositeDataList.concat(filteredDataObjects);
 
   // If there's no next page of data, return the composite compositeDataList
-  if (!response.data.next) {
+  if (!response.data.next || process.env.DATA_LEVEL === "low") {
     console.log(`Data for ${compositeDataList.length} FOIA requests collected.`);
     return compositeDataList;
   } else {
