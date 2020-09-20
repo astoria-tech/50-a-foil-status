@@ -4,7 +4,16 @@ const FoiaList = () => {
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState();
+  const [price, setPrice] = useState();
+  const filterData = {};
+
+  function applyFilter(item) {
+    let visible = true;
+    if (status && item.foiaReq.status !== status) visible = false;
+    if (price && parseFloat(item.foiaReq.price) !== parseFloat(price)) visible = false;
+    return visible;
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -18,28 +27,41 @@ const FoiaList = () => {
   if (loading) return <p>Loading…</p>;
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
-  const uniqueStatuses = new Set();
-  data && data.foiaList.forEach(item => uniqueStatuses.add(item.foiaReq.status));
-  const statusOptions = [];
-  uniqueStatuses.forEach(item => statusOptions.push(item));
+  if (data) {
+    const uniqueStatuses = new Set();
+    const uniquePrices = new Set();
+    data.foiaList.forEach(item => {
+      uniqueStatuses.add(item.foiaReq.status);
+      uniquePrices.add(parseFloat(item.foiaReq.price));
+    });
+    filterData.prices = Array.from(uniquePrices).sort((a, b) => a - b);
+    filterData.statuses = Array.from(uniqueStatuses);
+  }
 
   return data ? (
     <div className="foia-list">
       <div className="foia-list__filters">
         <p className="foia-list__filters-heading">Refine results</p>
         <form className="foia-list__filters-form">
-          <label htmlFor="foia-list-statuses">Status</label>
+          <label htmlFor="foia-list-statuses">Status: </label>
           <select id="foia-list-statuses" onChange={event => setStatus(event.target.value)}>
-            <option value="" key="none">Select a status</option>
-            {statusOptions.map(status => (
+            <option value="" key="no-status">Select a status</option>
+            {filterData.statuses.map(status => (
               <option value={status} key={status}>{status}</option>
+            ))}
+          </select>
+          <label htmlFor="foia-list-prices">Price: </label>
+          <select id="foia-list-prices" onChange={event => setPrice(parseFloat(event.target.value))}>
+            <option value="-0.1" key="no-price">Select a price</option>
+            {filterData.prices.map(price => (
+              <option value={price} key={price}>{new Intl.NumberFormat(navigator.language, {style: 'currency', currency: 'USD'}).format(price)}</option>
             ))}
           </select>
         </form>
       </div>
       <div className="foia-list__results">
-        {data.foiaList.map(item => (
-          <div hidden={status && item.foiaReq.status !== status} key={item.agency.id + item.foiaReq.id + item.jurisdiction.id} className="foia-list__item">
+        {data.foiaList.filter(applyFilter).map(item => (
+          <div key={item.agency.id + item.foiaReq.id + item.jurisdiction.id} className="foia-list__item">
             <h2><a href={item.foiaReq.absolute_url}>{item.agency.agencyName}</a></h2>
             <table>
               <tbody>
@@ -56,8 +78,8 @@ const FoiaList = () => {
                   <td>{item.foiaReq.status}</td>
                 </tr>
                 <tr>
-                  <td>Cost</td>
-                  <td>${item.foiaReq.price}</td>
+                  <td>Price</td>
+                  <td>{new Intl.NumberFormat(navigator.language, {style: 'currency', currency: 'USD'}).format(item.foiaReq.price)}</td>
                 </tr>
               </tbody>
             </table>
