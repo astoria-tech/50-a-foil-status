@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+require("dotenv").config();
 const app = require("../src/app");
 const debug = require("debug")("node-server:server");
 const http = require("http");
@@ -85,5 +85,5 @@ function onListening() {
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 
-  initUpdateCronJob();
+  process.env.CRON === "false" || initUpdateCronJob();
 }
