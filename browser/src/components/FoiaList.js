@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const FoiaList = () => {
-  const [data, setData] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState();
+const FoiaList = (props) => { const [status, setStatus] = useState();
   const [price, setPrice] = useState();
   const filterData = {};
 
@@ -15,30 +11,16 @@ const FoiaList = () => {
     return visible;
   }
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:3000/v1/latest")
-      .then((data) => data.json())
-      .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, []);
+  const uniqueStatuses = new Set();
+  const uniquePrices = new Set();
+  props.data.foiaList.forEach(item => {
+    uniqueStatuses.add(item.foiaReq.status);
+    uniquePrices.add(parseFloat(item.foiaReq.price));
+  });
+  filterData.prices = Array.from(uniquePrices).sort((a, b) => a - b);
+  filterData.statuses = Array.from(uniqueStatuses);
 
-  if (loading) return <p>Loading…</p>;
-  if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-
-  if (data) {
-    const uniqueStatuses = new Set();
-    const uniquePrices = new Set();
-    data.foiaList.forEach(item => {
-      uniqueStatuses.add(item.foiaReq.status);
-      uniquePrices.add(parseFloat(item.foiaReq.price));
-    });
-    filterData.prices = Array.from(uniquePrices).sort((a, b) => a - b);
-    filterData.statuses = Array.from(uniqueStatuses);
-  }
-
-  return data ? (
+  return (
     <div className="foia-list">
       <div className="foia-list__filters">
         <p className="foia-list__filters-heading">Refine results</p>
@@ -60,7 +42,7 @@ const FoiaList = () => {
         </form>
       </div>
       <div className="foia-list__results">
-        {data.foiaList.filter(applyFilter).map(item => (
+        {props.data.foiaList.filter(applyFilter).map(item => (
           <div key={item.agency.id + item.foiaReq.id + item.jurisdiction.id} className="foia-list__item">
             <h2><a href={item.foiaReq.absolute_url}>{item.agency.agencyName}</a></h2>
             <table>
@@ -87,8 +69,6 @@ const FoiaList = () => {
         ))}
       </div>
     </div>
-  ) : (
-    <p>No data.</p>
   );
 };
 
