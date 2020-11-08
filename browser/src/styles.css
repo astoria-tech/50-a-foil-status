@@ -1,0 +1,7 @@
+/* Hide X-Axis on 50a cost graph, since the library doesn't offer a native
+ * function to do this.
+ * TODO: Replace this with a less brittle approach.
+ */
+.headline__costs + svg > g > g:nth-child(2) {
+  display: none;
+}
