@@ -6,8 +6,8 @@ import "./styles.css";
 
 async function getMuckrockData() {
   return await fetch("http://localhost:3000/v1/latest")
-    .then(response => (response.ok ? response : Promise.reject(response)))
-    .then(response => response.json());
+    .then((response) => (response.ok ? response : Promise.reject(response)))
+    .then((response) => response.json());
 }
 
 function App() {
@@ -17,21 +17,23 @@ function App() {
   if (!data) return <p>No data</p>;
 
   let uniquePrices = new Set();
-  data.foiaList.forEach(item => {
+
+  data.foiaList.forEach((item) => {
     const price = parseFloat(item.foiaReq.price);
     if (price <= 0) return false;
     uniquePrices.add(price);
   });
+
   const prices = Array.from(uniquePrices)
-    .sort((first, second) => second > first)
-    .map(item => {
+    .sort((first, second) => second - first)
+    .map((item) => {
       return {
         value: item,
         id: new Intl.NumberFormat(navigator.language, {
-          style: 'currency',
-          currency: 'USD'
-        }).format(item)
-      }
+          style: "currency",
+          currency: "USD",
+        }).format(item),
+      };
     });
 
   return (
