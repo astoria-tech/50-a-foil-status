@@ -2,6 +2,7 @@
   "name": "browser",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://server:3000",
   "dependencies": {
     "@nivo/bar": "^0.64.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,7 +11,8 @@
     "react": "^16.13.1",
     "react-async": "^10.0.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "eslint": "^6.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
