@@ -5,7 +5,11 @@ import { Bar } from "@nivo/bar";
 import "./styles.css";
 
 async function getMuckrockData() {
-  return await fetch("http://localhost:3000/v1/latest")
+  let latest = "/v1/latest";
+  process.env.NODE_ENV === "development" &&
+    (latest = "http://localhost:3000" + latest);
+
+  return await fetch(latest)
     .then((response) => (response.ok ? response : Promise.reject(response)))
     .then((response) => response.json());
 }

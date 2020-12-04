@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  browser:
+    labels:
+      shipyard.route: '/'
+    build: 'browser/'
+    environment:
+      CI: 'true'
+    ports:
+      - '3000:3000'
+
+  server:
+    build: 'server/'
+    ports:
+      - '3001:3000'
