@@ -7,6 +7,10 @@ const corsOptions = {
       allowList = [...allowList, ...localDevOrigins];
     }
 
+    if (process.env.NODE_ENV === "production") {
+      allowList = ['/'];
+    }
+
     if (allowList.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
