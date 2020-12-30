@@ -2,6 +2,8 @@ import React from "react";
 import { useAsync } from "react-async";
 import FoiaList from "./components/FoiaList";
 import { Bar } from "@nivo/bar";
+import "normalize.css";
+import "astoria-tech-design";
 import "./styles.css";
 
 async function getMuckrockData() {
