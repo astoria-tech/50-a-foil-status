@@ -8,6 +8,7 @@ services:
     build: 'browser/'
     environment:
       CI: 'true'
+      REACT_APP_DEPLOYMENT_MODE: ${REACT_APP_DEPLOYMENT_MODE}
     ports:
       - '3000:3000'
 
