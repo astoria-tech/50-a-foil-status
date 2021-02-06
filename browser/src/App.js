@@ -97,6 +97,16 @@ function App() {
   // See file for data structure the graph expects.
   const tmpdata = require("./temp-treemap-data.json");
 
+  const statuses = new Map();
+  data.foiaList.forEach(item => {
+    if (statuses.has(item.foiaReq.status)) {
+      statuses.set(item.foiaReq.status, statuses.get(item.foiaReq.status) + 1);
+    }
+    else {
+      statuses.set(item.foiaReq.status, 1);
+    }
+  });
+
   const statusGraphData = function statusGraphData() {
     // Sweet math here. Return result when done.
     return tmpdata;
