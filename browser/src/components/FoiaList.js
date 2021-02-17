@@ -58,6 +58,7 @@ const FoiaList = (props) => {
 
   return (
     <div className="foia-list">
+      <h2 className="foia-list__headline">FOIA list</h2>
       <div className="foia-list__filters">
         <p className="foia-list__filters-heading">Refine results</p>
         <form className="foia-list__filters-form">
@@ -87,7 +88,9 @@ const FoiaList = (props) => {
       <div className="foia-list__results">
         {props.data.foiaList.filter(applyFilter).map(item => (
           <div key={item.agency.id + item.foiaReq.id + item.jurisdiction.id} className="foia-list__item">
-            <h2><a href={item.foiaReq.absolute_url}>{item.agency.agencyName}</a></h2>
+            <h3 className="foia-list__item-headline">
+              <a href={item.foiaReq.absolute_url}>{item.agency.agencyName}</a>
+            </h3>
             <table>
               <thead>
                 <tr>
