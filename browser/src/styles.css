@@ -1,25 +1,45 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 :root {
-  --ad-primary-color: #98BB35;
+	--ad-primary-color: #98bb35;
 }
 
 .graph {
-  height: 500px;
+	height: 500px;
 }
 
 header {
-  text-align: left;
+	text-align: left;
 }
 
 header h1 {
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.foia-list__item-table {
+	width: 100%;
+	text-align: left;
+	table-layout: fixed;
+	border-spacing: 0.5em;
+	font-size: small;
+}
+
+.foia-list__item-table td,
+.foia-list__item th {
+	padding: 0.5em;
 }
 
 .foia-list__item-headline {
-  font-size: 1.2em;
-  margin-bottom: 0.25em;
+	font-size: 1.2em;
+	margin-bottom: 0.25em;
+}
+
+@media (min-width: 768px) {
+	.foia-list__item-table {
+		border-spacing: 1.5em;
+		font-size: medium;
+	}
 }

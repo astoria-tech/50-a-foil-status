@@ -91,7 +91,7 @@ const FoiaList = (props) => {
             <h3 className="foia-list__item-headline">
               <a href={item.foiaReq.absolute_url}>{item.agency.agencyName}</a>
             </h3>
-            <table>
+            <table className="foia-list__item-table">
               <thead>
                 <tr>
                   <th>Submitted</th>
