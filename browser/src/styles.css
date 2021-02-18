@@ -43,3 +43,8 @@ header h1 {
     font-size: medium;
   }
 }
+
+.torch-icon {
+  width: 1em;
+  height: 1em;
+}
