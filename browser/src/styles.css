@@ -5,8 +5,16 @@
   --ad-primary-color: #98bb35;
 }
 
-.graph {
-  height: 500px;
+@media screen and (min-width: 800px) {
+  main {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 1fr 10ch 65ch 10ch 1fr;
+  }
+}
+
+main > * {
+  grid-column: 3 / span 1;
 }
 
 header {
@@ -17,6 +25,16 @@ header h1 {
   display: flex;
   margin-left: auto;
   margin-right: auto;
+}
+
+.graph {
+  height: 90vh;
+  max-width: 100vw;
+  grid-column: 1 / -1;
+}
+
+.graph--tree-map {
+  grid-column: 2 / span 3;
 }
 
 .foia-list__item-table {

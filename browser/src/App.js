@@ -124,7 +124,7 @@ function App() {
         <p>Visualizing the process of requesting Freedom of Information Law Requests from New York State Police Departments</p>
         <h2>Explore the data</h2>
         <h3>Status of Requests</h3>
-        <div className="graph">
+        <div className="graph graph--tree-map">
           <ResponsiveTreeMap
             data={statusGraphData()}
             identity="name"
@@ -140,7 +140,7 @@ function App() {
         <p>In response to the Freedom of Information Law Requests, New York State police departments have claimed to have no records (“no documents”) of officer misconduct from the past 50 years.</p>
         <p>The done status may not mean that the request was successful, Muckrock is restarting some requests from the beginning after having previous requests rejected. The appealing process means that the initial request was rejected and that they are rewriting their argument and a copy of the letter must go to the Committe on Open Government. A lawsuit status indicates that the process has escalated to the courtroom.</p>
         <h3>Timeline of the Request Process</h3>
-        <div className="graph">
+        <div className="graph graph--bar">
           <ResponsiveBar
             data={times}
             isInteractive={false}
@@ -174,7 +174,7 @@ function App() {
         </div>
         <p>Agencies have five days to confirm a FOIL request, but are not held to any timeline for how long it takes them to complete the request.</p>
         <h3>Fees Charged by agency</h3>
-        <div className="graph">
+        <div className="graph graph--bar">
           <ResponsiveBar
             isInteractive={false}
             margin={{ top: 0, right: 100, bottom: 50, left: 100 }}
