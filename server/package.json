@@ -9,6 +9,7 @@
     "dev:nocron": "NODE_ENV=development CRON=false nodemon ./bin/www --ignore src/datastore/data",
     "datastore:init": "DATA_LEVEL=full node src/datastore/scripts/createDatastore/init.js",
     "datastore:init:lowdata": "DATA_LEVEL=low node src/datastore/scripts/createDatastore/init.js",
+    "datastore:init:quick": "node src/datastore/scripts/createDatastore/quick.js",
     "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit"
   },
   "dependencies": {
