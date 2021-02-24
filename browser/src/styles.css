@@ -6,6 +6,10 @@
   --ad-secondary-color: #ccdd9a;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .graph {
   height: 500px;
 }
@@ -27,25 +31,20 @@ header {
   z-index: 200;
   padding: 32px 16px;
   box-sizing: border-box;
-  transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 
 .drawer.open {
-  -webkit-transform: translateY(0);
   transform: translateY(0);
 }
 
 .drawer.closed {
-  -webkit-transform: translateY(-100%);
   transform: translateY(-100%);
 }
 
 .hamburger_menu_container {
   z-index: 500;
   width: 100%;
-  /* border: 2px solid blue; */
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -90,6 +89,8 @@ header h1 {
     font-size: medium;
   }
   .drawer.open {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
     min-height: fit-content;
   }
 

@@ -152,7 +152,7 @@ function App() {
           </svg>
           <span>Tracking Officer Misconduct and Disciplinary Materials</span>
         </h1>
-        <Drawer open={menuOpen} />
+        <Drawer open={menuOpen} closeMenu={()=> setMenuOpen(false)}/>
       </header>
       <main>
         <p>
@@ -239,7 +239,7 @@ function App() {
           Most agencies have not charged fees for their requests and it is not
           clear how the fees are calculated when there is a required payment.
         </p>
-        <h2>About These Requests</h2>
+        <h2 id="about_these_requests">About These Requests</h2>
         <p>
           In June of 2020, New York’s Governor, Andrew Cuomo signed a bill
           repealing section 50-a of the state’s Civil Rights law that had been
