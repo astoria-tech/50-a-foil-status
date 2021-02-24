@@ -37,6 +37,24 @@ header h1 {
   grid-column: 2 / span 3;
 }
 
+.foia-list__headline {
+  margin-bottom: 0.25em;
+}
+
+.foia-list__filters-form {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+.foia-list label {
+  display: flex;
+  margin-top: 1em;
+  font-size: 0.85em;
+  font-weight: 500;
+  flex-flow: column nowrap;
+}
+
 .foia-list__item-table {
   width: 100%;
   text-align: left;
