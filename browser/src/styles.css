@@ -3,6 +3,7 @@
 
 :root {
   --ad-primary-color: #98bb35;
+  --ad-secondary-color: #ccdd9a;
 }
 
 .graph {
@@ -11,6 +12,52 @@
 
 header {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+}
+
+.drawer {
+  position: fixed;
+  width: 100vw;
+  background-color: var(--ad-secondary-color);
+  min-height: 30vh;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+}
+
+.drawer.open {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.drawer.closed {
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+.hamburger_menu_container {
+  z-index: 500;
+  width: 100%;
+  /* border: 2px solid blue; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.hamburger_menu_container:hover {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
 }
 
 header h1 {
@@ -41,6 +88,21 @@ header h1 {
   .foia-list__item-table {
     border-spacing: 1.5em;
     font-size: medium;
+  }
+  .drawer.open {
+    min-height: fit-content;
+  }
+
+  .navigation_items {
+    padding: 0 3em;
+  }
+  .navigation_items ul {
+    float: right;
+  }
+
+  .hamburger_menu_container.open {
+    position: fixed;
+    padding-right: 2em;
   }
 }
 
