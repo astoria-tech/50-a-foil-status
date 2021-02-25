@@ -1,0 +1,8 @@
+{
+  "name": "50-a-foil-status",
+  "scripts": {
+    "start": "./start.sh",
+    "stop": "./stop.sh"
+  }
+}
+
