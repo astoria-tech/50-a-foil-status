@@ -14,7 +14,7 @@ async function getMuckrockData() {
   if (process.env.REACT_APP_DEPLOYMENT_MODE === "production") {
     latest = "/v1/latest";
   } else {
-    latest = "http://localhost:3000/v1/latest";
+    latest = "http://localhost:3001/v1/latest";
   }
 
   return await fetch(latest)
