@@ -12,8 +12,8 @@ const initUpdateCronJob = require("../src/datastore/scripts/cron");
 /**
  * Get port from environment and store in Express.
  */
-
-const port = normalizePort(process.env.PORT || "3000");
+const basePort = process.env.NODE_ENV === "production" ? 3000 : 3001;
+const port = normalizePort(process.env.PORT || basePort);
 app.set("port", port);
 
 /**
