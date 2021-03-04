@@ -1,18 +1,20 @@
-const getDataByPage = require("./getDataByPage");
-const addMetadata = require("./addMetadata");
-const writeOutput = require("../writeOutput");
+const muckrockApi = require('./muckrockApi');
+const populateFoia = require('./populateFoia');
+const populateMetadata = require('./populateMetadata');
+const writeOutput = require('../writeOutput');
+const { OFFICER_ACCOUNTABILITY_NY, NYC_JURISDICTION_ID, NY_STATE_JURISDICTION_ID } = require('../constants');
 
 const createDatastore = async () => {
-  console.log("Creating datastore...");
-
-  const firstPageUrl =
-    "https://www.muckrock.com/api_v1/foia/?page_size=200&user=Officer_Accountability_NY";
+  console.log('Creating datastore...');
 
   try {
-    const foiaDataList = await getDataByPage(firstPageUrl);
-    const completeDataList = await addMetadata(foiaDataList);
-
-    await writeOutput(completeDataList);
+    populateMetadata([NY_STATE_JURISDICTION_ID, NYC_JURISDICTION_ID])
+    .then(({agencies, jurisdictions}) => {
+      return populateFoia(OFFICER_ACCOUNTABILITY_NY, agencies, jurisdictions);
+    })
+    .then((completeFoiaList) => {
+      writeOutput(completeFoiaList);
+    });
   } catch (error) {
     console.log(error);
   }
