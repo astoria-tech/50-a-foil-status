@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
+import { FoiaStatuses, convertFoiaStatus } from "./FoiaStatus";
 
 
 const FoiaList = (props) => {
@@ -8,33 +9,58 @@ const FoiaList = (props) => {
 
   function applyFilter(item) {
     if (!Object.getOwnPropertyNames(filters).length) return true;
-    let isVisible = [];
+    let isVisible = [0];
     for (let key in filters) {
-      if (filters[key] === "") {
-        isVisible.push(0);
-      }
-      else if (item.foiaReq.datetime_done && key === "turnaroundTime") {
+      if (item.foiaReq.datetime_done && key === "turnaroundTime") {
         isVisible.push(
           DateTime.fromISO(item.foiaReq.datetime_done).toMillis() > DateTime.fromISO(filters[key]).toMillis() ? 0 : 1
         );
       }
-      else {
-        const filter = key === "price" ? parseFloat(filters[key]) : filters[key];
-        const request = key === "price" ? parseFloat(item.foiaReq[key]) : item.foiaReq[key];
-        isVisible.push(request === filter ? 0 : 1);
+      else if (key === "price" && filters[key] && filters[key].minimum) {
+        const minFilter = parseFloat(filters[key].minimum);
+        const maxFilter = filters[key].maximum ? parseFloat(filters[key].maximum) : Infinity;
+        const request = parseFloat(item.foiaReq.price);
+        isVisible.push(request >= minFilter && request < maxFilter ? 0 : 1);
+      }
+      else if (key === "status" && filters[key] && filters[key].value) {
+        isVisible.push(filters[key].value === item.foiaReq.status ? 0 : 1);
       }
     };
     return isVisible.reduce((acc, val) => acc + val) === 0;
   }
-
-  const uniqueStatuses = new Set();
-  const uniquePrices = new Set();
-  props.data.foiaList.forEach(item => {
-    uniqueStatuses.add(item.foiaReq.status);
-    uniquePrices.add(parseFloat(item.foiaReq.price));
-  });
-  filterData.prices = Array.from(uniquePrices).sort((a, b) => a - b);
-  filterData.statuses = Array.from(uniqueStatuses);
+  
+  filterData.statuses = Array.from(FoiaStatuses);
+  filterData.prices = [
+    {
+      label: "No Fee",
+      value: "no_fee",
+      minimum: 0.00,
+      maximum: 0.01, // noninclusive
+    },
+    { 
+      label: "Under $100",
+      value: "under_hundred",
+      minimum: 0.01,
+      maximum: 100.00,
+    },
+    { 
+      label: "$100 to $999",
+      value: "hundred_to_thousand",
+      minimum: 100.00,
+      maximum: 1000.00,
+    },
+    { 
+      label: "$1,000 to $9,999",
+      value: "thousand_to_ten_thousand",
+      minimum: 1000.00,
+      maximum: 10000.00,
+    },
+    { 
+      label: "Over $10,000",
+      value: "over_ten_thousand",
+      minimum: 10000.00,
+    },
+  ];
 
   const dt = DateTime.local();
   filterData.turnaroundTimes = [
@@ -63,19 +89,19 @@ const FoiaList = (props) => {
         <form className="foia-list__filters-form">
           <label htmlFor="foia-list-statuses">
             Status:
-            <select id="foia-list-statuses" onChange={event => setFilters({...filters, status: event.target.value})}>
+            <select id="foia-list-statuses" onChange={event => setFilters({...filters, status: filterData.statuses.find(status => status.value === event.target.value)})}>
               <option value="" key="no-status">Select a status</option>
               {filterData.statuses.map(status => (
-                <option value={status} key={status}>{status}</option>
+                <option value={status.value} key={status.label}>{status.label}</option>
               ))}
             </select>
           </label>
           <label htmlFor="foia-list-prices">
             Price:
-            <select id="foia-list-prices" onChange={event => setFilters({...filters, price: event.target.value})}>
+            <select id="foia-list-prices" onChange={event => setFilters({...filters, price: filterData.prices.find(price => price.value === event.target.value)})}>
               <option value="" key="no-price">Select a price</option>
               {filterData.prices.map(price => (
-                <option value={price} key={price}>{new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(price)}</option>
+                <option value={price.value} key={price.value}>{price.label}</option>
               ))}
             </select>
           </label>
@@ -107,9 +133,11 @@ const FoiaList = (props) => {
               </thead>
               <tbody>
                 <tr>
-                  <td><time dateTime={item.foiaReq.datetime_submitted}>{item.foiaReq.datetime_submitted}</time></td>
-                  <td><time dateTime={item.foiaReq.datetime_done}>{item.foiaReq.datetime_done}</time></td>
-                  <td>{item.foiaReq.status}</td>
+                  <td><time dateTime={DateTime.fromISO(item.foiaReq.datetime_submitted)}>{DateTime.fromISO(item.foiaReq.datetime_submitted).toLocaleString()}</time></td>
+                  <td>{item.foiaReq.datetime_done && (
+                    <time dateTime={DateTime.fromISO(item.foiaReq.datetime_done)}>{DateTime.fromISO(item.foiaReq.datetime_done).toLocaleString()}</time>
+                  )}</td>
+                  <td>{convertFoiaStatus(item.foiaReq.status).label}</td>
                   <td>{new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(item.foiaReq.price)}</td>
                 </tr>
               </tbody>
