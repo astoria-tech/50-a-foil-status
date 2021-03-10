@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
 import HamburgerMenu from "react-hamburger-menu";
 import Drawer from "./components/Toolbar/Drawer/Drawer";
 import "normalize.css";
-import "astoria-tech-design";
+import "./astoria-tech-design.css";
 import "./styles.css";
 
 async function getMuckrockData() {
@@ -160,20 +160,6 @@ function App() {
           Requests from New York State Police Departments
         </p>
         <h2>Explore the data</h2>
-        <h3>Status of Requests</h3>
-        <div className="graph graph--tree-map">
-          <ResponsiveTreeMap
-            data={statusGraphData()}
-            identity="name"
-            value="loc"
-            valueFormat=".02s"
-            margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-            labelSkipSize={12}
-            labelTextColor={{ from: "color", modifiers: [["darker", 1.2]] }}
-            parentLabelTextColor={{ from: "color", modifiers: [["darker", 2]] }}
-            borderColor={{ from: "color", modifiers: [["darker", 0.1]] }}
-          />
-        </div>
         <p>
           In response to the Freedom of Information Law Requests, New York State
           police departments have claimed to have no records (“no documents”) of
