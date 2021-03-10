@@ -1,0 +1,216 @@
+/* Variables */
+
+:root {
+  --ad-primary-color: #ffda00;
+  --ad-main-text: #000;
+  --ad-background-color: #fff;
+}
+
+/* Layout */
+
+* {
+  box-sizing: border-box;
+  /* width and height includes padding and border */
+}
+
+main {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+section {
+  margin: 1em 0;
+}
+
+/* Typography */
+
+html {
+  font-size: 18px;
+  font-family: 'DM Mono', Courier, monospace;
+  line-height: 1.25;
+  background-color: var(--ad-background-color);
+  color: var(--ad-main-text);
+}
+
+@media screen and (min-width: 700px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Fjalla One', Helvetica, sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+h4, h5, h6 {
+  font-family: 'DM Mono', Courier, monospace;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 4em;
+}
+
+h2 {
+  font-size: 3em;
+}
+
+h3 {
+  font-size: 2.5em;
+}
+
+h4 {
+  font-size: 1.75em;
+}
+
+h5 {
+  font-size: 1.5em;
+}
+
+h6 {
+  font-size: 1.25em;
+}
+
+/* Navigation */
+
+ol, ul {
+  line-height: 2;
+}
+
+ul {
+  list-style-type: '- ';
+}
+
+/* Links */
+
+a:link,
+a:active,
+a:visited {
+  text-decoration: underline 0.1em solid;
+  color: var(--ad-main-text);
+}
+
+a:hover {
+  text-decoration: none;
+  color: #000;
+  background-color: var(--ad-primary-color);
+}
+
+/* Buttons */
+
+button {
+  font-family: inherit;
+  font-size: 100%;
+  background-color: var(--ad-background-color);
+  color: var(--ad-main-text);
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  padding: 1em 2em;
+  margin: 0.5em;
+  cursor: pointer;
+  border-radius: 0.15rem;
+  border: 0.1em solid;
+}
+
+button:hover {
+  background-color: var(--ad-primary-color);
+  color: #000;
+  border-color: #fff;
+}
+
+button[disabled] {
+  opacity: 0.7;
+  background-color: var(--ad-background-color);
+}
+
+button[disabled]:hover {
+  color: var(--ad-main-text);
+  cursor: not-allowed;
+}
+
+/* Tables */
+
+.table-wrapper {
+  overflow-x: scroll;
+  max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  border-bottom: 2px solid;
+}
+
+th, td {
+  padding-right: 1em;
+}
+
+th:last-of-type, td:last-of-type {
+  padding-right: 0;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+/* Cards */
+
+.card {
+  border: 0.15em solid;
+}
+
+.card__header {
+  padding: 0 1em;
+}
+
+.card__paragraph,
+.card__secondary-paragraph {
+  padding: 1em 2em 0 2em;
+}
+
+.card__paragraph {
+  border-top: 0.15em solid;
+}
+
+.card__secondary-paragraph {
+  border-top: 0.15em dashed;
+}
+
+/* Header */
+
+header {
+  text-align: center;
+  background-color: var(--ad-primary-color);
+  color: #000;
+  padding: 1em;
+}
+
+/* Footer */
+
+footer {
+  margin-top: 5em;
+  padding: 2em 0;
+  color: #000;
+  background-color: var(--ad-primary-color);
+}
+
+footer a:link,
+footer a:visited,
+footer a:active {
+  color: #000;
+}
+
+footer small,
+.copyright {
+  text-align: center;
+}
