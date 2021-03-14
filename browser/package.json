@@ -2,7 +2,7 @@
   "name": "browser",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://server:3000",
+  "proxy": "http://server:3001",
   "dependencies": {
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
