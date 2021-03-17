@@ -11,6 +11,7 @@ const NavigationItems = () => {
         <li><a href="https://astoria.digital/">Astoria Digital</a></li>
         <li><a href="https://github.com/astoria-tech/50-a-foil-status">Github for this project</a></li>
         <li><a href="https://foil.astoria.digital/">FOIL Requests in New York State</a></li>
+        <li><a href="#links_and_references">Links and References</a></li>
       </ul>
     </div>
   );

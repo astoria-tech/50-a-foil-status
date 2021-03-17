@@ -241,7 +241,7 @@ function App() {
           The team at Astoria Digital is using the data from these request to
           create visualizations to show their process in real time.
         </p>
-        <h2>Links and References</h2>
+        <h2 id="links_and_references">Links and References</h2>
         <ul>
           <li>All Requests</li>
           <li>Materials and Articles</li>
