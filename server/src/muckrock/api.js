@@ -1,10 +1,10 @@
 const axios = require('axios');
-const { MUCKROCK_BASE_URL, MUCKROCK_PAGE_SIZE } = require('../constants');
+const { MUCKROCK_BASE_URL, MUCKROCK_PAGE_SIZE } = require('./constants');
 
 axios.defaults.headers['Content-Type'] = 'application/json';
 const baseUrl = MUCKROCK_BASE_URL, pageSize = MUCKROCK_PAGE_SIZE;
 
-const get = async (url, params) => {
+const get = async (url, params = null) => {
   if (params) {
     console.log(`calling ${url} with ${JSON.stringify(params)}`);
     return axios.get(url, { params: params });
@@ -14,7 +14,7 @@ const get = async (url, params) => {
   }
 };
 
-const paginateGet = async (url, previousResults, params = null) => {
+const paginateGet = async (url, previousResults = [], params = null) => {
   return get(url, params)
     .then((response) => {
       const results = [...previousResults, ...response.data.results];
@@ -56,6 +56,11 @@ const getAgencies = async ({ jurisdictionId = null } = {}) => {
   return paginateGet(baseUrl + 'agency', [], params);
 };
 
+const getAgency = async (id) => {
+  return get(baseUrl + `agency/${id}`)
+    .then((response) => response.data);
+};
+
 const getJurisdictions = async ({ parentId } = {}) => {
   const params = { 'page_size': pageSize };
 
@@ -68,17 +73,15 @@ const getJurisdictions = async ({ parentId } = {}) => {
 
 const getJurisdiction = async (id) => {
   return get(baseUrl + `jurisdiction/${id}`)
-    .then((response) => {
-      return response.data;
-    });
+    .then((response) => response.data);
 };
-
 
 module.exports = { 
   get: get,
   paginateGet: paginateGet,
   getFoiaRequests: getFoiaRequests,
   getAgencies: getAgencies,
+  getAgency: getAgency,
   getJurisdictions: getJurisdictions,
   getJurisdiction: getJurisdiction,
 };

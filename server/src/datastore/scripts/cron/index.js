@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const createDatastore = require("../createDatastore/");
+const populateFoia = require("../populateFoia/");
 
 const initUpdateCronJob = async () => {
   const cronConfig = setCronConfig();
@@ -9,7 +9,7 @@ const initUpdateCronJob = async () => {
 
   cron.schedule(cronConfig.expression, async () => {
     console.log(`Running ${logStatement} ...`);
-    await createDatastore();
+    await populateFoia();
   });
 };
 
