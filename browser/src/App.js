@@ -243,10 +243,10 @@ function App() {
         </p>
         <h2 id="links_and_references">Links and References</h2>
         <ul>
-          <li>All Requests</li>
-          <li>Materials and Articles</li>
-          <li>Github for this project</li>
-          <li>FOIL Requests in New York State</li>
+          <li><a href="https://www.muckrock.com/foi/list/?projects=778" target="_blank">All Requests</a></li>
+          <li><a href="https://www.muckrock.com/project/new-york-officer-misconduct-and-disciplinary-materials-778/" target="_blank">Materials and Articles</a></li>
+          <li><a href="https://github.com/astoria-tech/50-a-foil-status" target="_blank">Github for this project</a></li>
+          <li><a href="https://foil.astoria.digital/" target="_blank">FOIL Requests in New York State</a></li>
         </ul>
         <FoiaList data={data} />
       </main>
