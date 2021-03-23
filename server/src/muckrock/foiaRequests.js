@@ -2,13 +2,13 @@ const muckrockApi = require('./api');
 
 const parseFoiaRequest = (foiaRequest = {}) => {
   return {
-    id: foiaRequest.id,
+    id: foiaRequest.id.toString(),
     status: foiaRequest.status,
     datetime_submitted: foiaRequest.datetime_submitted,
     datetime_done: foiaRequest.datetime_done,
     price: foiaRequest.price,
     absolute_url: foiaRequest.absolute_url,
-    agency: foiaRequest.agency,
+    agency: foiaRequest.agency.toString(),
   };
 };
 
@@ -23,5 +23,6 @@ const retrieveFoiaRequestsByUsernames = async (usernames = []) => {
 }
 
 module.exports = {
+  parseFoiaRequests: parseFoiaRequests,
   retrieveFoiaRequestsByUsernames: retrieveFoiaRequestsByUsernames
 };

@@ -1,19 +1,19 @@
-const writeOutput = require('../writeOutput');
+const write = require('../../fileDatastore/write');
 const { DATASTORE_PATH: dirname } = require("../constants");
-const { OFFICER_ACCOUNTABILITY_NY, NYC_JURISDICTION_ID, NY_STATE_JURISDICTION_ID } = require('../constants');
+const { OFFICER_ACCOUNTABILITY_NY } = require('../constants');
 const retrieveFoia = require('./retrieveFoia');
-const retrieveMetadata = require('../populateMetadata/retrieveMetadata');
+const readMetadata = require('./readMetadata');
 
 const populateFoia = async () => {
   console.log('Populating FOIA datastore...');
 
   try {
-    retrieveMetadata([NYC_JURISDICTION_ID, NY_STATE_JURISDICTION_ID])
-      .then(({agencies, jurisdictions}) => {
-        return retrieveFoia(OFFICER_ACCOUNTABILITY_NY, agencies, jurisdictions);
+    readMetadata()
+      .then((metadata) => {
+        return retrieveFoia(OFFICER_ACCOUNTABILITY_NY, metadata.agencyData.agencies, metadata.jurisdictionData.jurisdictions);
       })
       .then((completeFoiaList) => {
-        writeOutput(completeFoiaList, dirname);
+        write(completeFoiaList, dirname);
       });
   } catch (error) {
     console.log(error);

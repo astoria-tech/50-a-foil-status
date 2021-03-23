@@ -2,10 +2,10 @@ const muckrockApi = require('./api');
 
 const parseAgency = (agency = {}) => {
   return {
-    id: agency.id,
+    id: agency.id.toString(),
     name: agency.name,
     absolute_url: agency.absolute_url,
-    jurisdiction: agency.jurisdiction,
+    jurisdiction: agency.jurisdiction.toString(),
     appeal_agency: agency.appeal_agency,
     parent: agency.parent,
     average_response_time: agency.average_response_time,
@@ -35,6 +35,7 @@ const retrieveAllAgencies = async () => {
 };
 
 module.exports = {
+  parseAgencies: parseAgencies,
   retrieveAgenciesByIds: retrieveAgenciesByIds,
   retrieveAgenciesByJurisdictionIds: retrieveAgenciesByJurisdictionIds,
   retrieveAllAgencies: retrieveAllAgencies

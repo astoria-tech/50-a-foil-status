@@ -2,9 +2,9 @@ const muckrockApi = require('./api');
 
 const parseJurisdiction = (jurisdiction = {}) => {
   return {
-    id: jurisdiction.id,
+    id: jurisdiction.id.toString(),
     name: jurisdiction.name,
-    parent: jurisdiction.parent,
+    parent: jurisdiction.parent.toString(),
     level: jurisdiction.level,
     average_response_time: jurisdiction.average_response_time,
     fee_rate: jurisdiction.fee_rate,
@@ -29,6 +29,7 @@ const retrieveJurisdictionsByRootIds = async (rootJurisdictionIds = []) => {
 };
 
 module.exports = {
+  parseJurisdictions: parseJurisdictions,
   retrieveJurisdictionsByIds: retrieveJurisdictionsByIds,
   retrieveJurisdictionsByRootIds: retrieveJurisdictionsByRootIds
 };

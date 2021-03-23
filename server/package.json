@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node ./bin/www",
-    "dev": "NODE_ENV=development DATA_LEVEL=full nodemon ./bin/www --ignore src/datastore/data",
-    "dev:lowdata": "NODE_ENV=development DATA_LEVEL=low nodemon ./bin/www --ignore src/datastore/data",
+    "dev": "NODE_ENV=development nodemon ./bin/www --ignore src/datastore/data",
     "dev:nocron": "NODE_ENV=development CRON=false nodemon ./bin/www --ignore src/datastore/data",
-    "datastore:init": "DATA_LEVEL=full node src/datastore/scripts/populateFoia/init.js",
-    "datastore:init:lowdata": "DATA_LEVEL=low node src/datastore/scripts/populateFoia/init.js",
+    "datastore:init": "node src/datastore/scripts/populateFoia/init.js",
     "datastore:init:quick": "node src/datastore/scripts/populateFoia/quick.js",
+    "metadata:init": "node src/datastore/scripts/populateMetadata/init.js",
     "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit"
   },
   "dependencies": {

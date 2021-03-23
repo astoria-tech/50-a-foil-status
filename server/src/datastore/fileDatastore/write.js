@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-const writeOutput = async (dataStore, dirname) => {
+const write = async (dataStore, dirname) => {
   const filename = `${dataStore.meta ? dataStore.meta.runDate : Date.now()}.json`;
 
   try {
@@ -23,4 +23,4 @@ const convertIntIdsToString = (key, value) => {
   return key === "id" && typeof value === "number" ? value.toString() : value;
 };
 
-module.exports = writeOutput;
+module.exports = write;
