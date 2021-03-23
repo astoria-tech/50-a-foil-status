@@ -75,10 +75,7 @@ function App() {
     .map((item) => {
       return {
         value: item,
-        id: new Intl.NumberFormat(navigator.language, {
-          style: "currency",
-          currency: "USD",
-        }).format(item),
+        id: item,
       };
     });
 
@@ -142,8 +139,8 @@ function App() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <g fill="#000">
-              <path d="m33 0v14.0625h4.6875v-4.6875h4.6875v-4.6875h4.6875v9.375h4.6875v9.375h4.6875v4.6875h4.6875v4.6875h4.6875v14.0625h-4.6875v4.6875h-4.6875v4.6875h-9.375c0-1.4063 0-2.9063 0-4.6875h4.6875v-14.0625h-4.6875v-4.6875h-4.6875v-4.6875c-1.5938 0-3.0937 0-4.6875 0v4.6875h-4.6875v-4.6875h-4.6875v-4.6875h-4.6875v14.0625h-4.6875v14.0625h4.6875v4.6875h-9.375v-4.6875h-4.6875v-4.6875h-4.6875v-18.75h4.6875v-9.375h4.6875v-4.6875h4.6875v-4.6875h4.6875v-4.6875h4.6875v-4.6875z" />
-              <path d="m42.375 145.312v4.407h-.2812-13.7813v-4.407h-4.6875v-56.2495h-4.6875v-4.6875h-4.6875v-4.6875h-4.6875v-4.6875h-9.375c0-4.6875 0-9.375 0-14.0625h70.3125v14.0625h-9.375v4.6875h-4.6875v-4.6875h-4.6875c-1.5 0-3.0469 0-4.6875 0v4.6875h-4.6875v4.6875h-4.6875c-.4219 10.4063-.2344 58.359 0 60.937zm4.6875-79.687h-4.6875v4.6875h4.6875zm9.375 0h-4.6875v4.6875h4.6875zm9.375 0h-4.6875v4.6875h4.6875z" />
+              <path d="m33 0v14.0630h4.6875v-4.6875h4.6875v-4.6875h4.6875v9.375h4.6875v9.375h4.6875v4.6875h4.6875v4.6875h4.6875v14.0630h-4.6875v4.6875h-4.6875v4.6875h-9.375c0-1.4063 0-2.9063 0-4.6875h4.6875v-14.0630h-4.6875v-4.6875h-4.6875v-4.6875c-1.5938 0-3.0937 0-4.6875 0v4.6875h-4.6875v-4.6875h-4.6875v-4.6875h-4.6875v14.0630h-4.6875v14.0630h4.6875v4.6875h-9.375v-4.6875h-4.6875v-4.6875h-4.6875v-18.75h4.6875v-9.375h4.6875v-4.6875h4.6875v-4.6875h4.6875v-4.6875h4.6875v-4.6875z" />
+              <path d="m42.375 145.312v4.407h-.2812-13.7813v-4.407h-4.6875v-56.2495h-4.6875v-4.6875h-4.6875v-4.6875h-4.6875v-4.6875h-9.375c0-4.6875 0-9.375 0-14.0630h70.3130v14.0630h-9.375v4.6875h-4.6875v-4.6875h-4.6875c-1.5 0-3.0469 0-4.6875 0v4.6875h-4.6875v4.6875h-4.6875c-.4219 10.4063-.2344 58.359 0 60.937zm4.6875-79.687h-4.6875v4.6875h4.6875zm9.375 0h-4.6875v4.6875h4.6875zm9.375 0h-4.6875v4.6875h4.6875z" />
               <path d="m56.4375 79.6875v4.6875h-4.6875v4.6875h-4.6875v56.2495h-4.6875v-60.937h4.6875v-4.6875z" />
               <path d="m33 42.1875v9.375h-4.6875v-9.375z" />
               <path d="m37.6875 42.1875h4.6875v9.375h-4.6875z" />
@@ -180,8 +177,7 @@ function App() {
           <ResponsiveBar
             data={times}
             isInteractive={false}
-            margin={{ top: 0, right: 100, bottom: 50, left: 100 }}
-            padding={0.3}
+            margin={{ top: 0, right: 0, bottom: 50, left: 25 }}
             layout="vertical"
             axisTop={null}
             axisRight={null}
@@ -215,10 +211,17 @@ function App() {
         <h3>Fees Charged by agency</h3>
         <div className="graph graph--bar">
           <ResponsiveBar
-            isInteractive={false}
-            margin={{ top: 0, right: 100, bottom: 50, left: 100 }}
+            isInteractive
+            margin={{ top: 0, right: 0, bottom: 50, left: 15 }}
             layout="horizontal"
-            enableLabel={false}
+            enableLabel
+            tooltip={config => new Intl.NumberFormat('en-US',{style: 'currency', currency: 'USD'}).format(config.value)}
+            labelFormat={(num) => {
+              const numString = Math.round(num) + '';
+              if (numString.length < 4) return `$${numString}`;
+              return `$${numString.slice(0, 3)}k`;
+            }}
+            axisLeft={null}
             data={prices}
           />
         </div>
