@@ -14,7 +14,7 @@ const FoiaStatuses = [
   FoiaStatus("no_docs", "No Documents Found"),
   FoiaStatus("fix", "Additional Action Required"),
   FoiaStatus("lawsuit", "Pending Litigation"),
-  FoiaStatus("abandoned", "Duplicate Request Abandoned"),
+  FoiaStatus("abandoned", "Duplicate Request"),
   FoiaStatus("partial", "Partially Completed"),
   FoiaStatus("appealing", "Appealing"),
   FoiaStatus("other", "Other"), // This is not present in their dataset, but is used to show any that don"t match these criteria
