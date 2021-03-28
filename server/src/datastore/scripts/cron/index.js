@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const createDatastore = require("../createDatastore/");
+const populateFoia = require("../populateFoia/");
 
 const initUpdateCronJob = async () => {
   const cronConfig = setCronConfig();
@@ -9,25 +9,24 @@ const initUpdateCronJob = async () => {
 
   cron.schedule(cronConfig.expression, async () => {
     console.log(`Running ${logStatement} ...`);
-    await createDatastore();
+    await populateFoia();
   });
 };
 
 const setCronConfig = () => {
-  const everyHour = "0 * * * *";
-  const everyThirtyMinutes = "*/30 * * * *";
-  const everyOtherMinute = "*/2 * * * *";
+  const everyDay = "0 0 0 * *";
+  const everyTenMinutes = "*/6 * * * *";
 
   let expression, envStr;
   switch (process.env.NODE_ENV) {
     case "production":
-      expression = everyHour;
-      envStr = `NODE_ENV=${process.env.NODE_ENV}; DATA_LEVEL=${process.env.DATA_LEVEL}`;
+      expression = everyDay;
+      envStr = `NODE_ENV=${process.env.NODE_ENV}`;
       break;
 
     case "development":
-      expression = process.env.DATA_LEVEL === "low" ? everyOtherMinute : everyThirtyMinutes;
-      envStr = `NODE_ENV=${process.env.NODE_ENV}; DATA_LEVEL=${process.env.DATA_LEVEL}`;
+      expression = everyTenMinutes;
+      envStr = `NODE_ENV=${process.env.NODE_ENV}`;
       break;
 
     default:
