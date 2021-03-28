@@ -8,11 +8,11 @@ const FoiaStatus = (value, label) => {
 const FoiaStatuses = [
   FoiaStatus("ack", "Awaiting Acknowledgement"),
   FoiaStatus("rejected", "Rejected"),
-  FoiaStatus("done", "Done"),
+  FoiaStatus("done", "Completed"),
   FoiaStatus("processed", "Awaiting Processing"),
   FoiaStatus("payment", "Awaiting Payment"),
   FoiaStatus("no_docs", "No Documents Found"),
-  FoiaStatus("fix", "Requires Updates"),
+  FoiaStatus("fix", "Additional Action Required"),
   FoiaStatus("lawsuit", "Pending Litigation"),
   FoiaStatus("abandoned", "Duplicate Request Abandoned"),
   FoiaStatus("partial", "Partially Completed"),
