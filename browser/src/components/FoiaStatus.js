@@ -6,16 +6,16 @@ const FoiaStatus = (value, label) => {
 };
 
 const FoiaStatuses = [
-  FoiaStatus("ack", "Acknowledged"),
+  FoiaStatus("ack", "Awaiting Acknowledgement"),
   FoiaStatus("rejected", "Rejected"),
-  FoiaStatus("done", "Done"),
-  FoiaStatus("processed", "Processed"),
+  FoiaStatus("done", "Completed"),
+  FoiaStatus("processed", "Awaiting Processing"),
   FoiaStatus("payment", "Awaiting Payment"),
   FoiaStatus("no_docs", "No Documents Found"),
-  FoiaStatus("fix", "Requires Updates"),
-  FoiaStatus("lawsuit", "Lawsuit Filed"),
-  FoiaStatus("abandoned", "Abandoned"),
-  FoiaStatus("partial", "Incomplete Request"),
+  FoiaStatus("fix", "Additional Action Required"),
+  FoiaStatus("lawsuit", "Pending Litigation"),
+  FoiaStatus("abandoned", "Duplicate Request"),
+  FoiaStatus("partial", "Partially Completed"),
   FoiaStatus("appealing", "Appealing"),
   FoiaStatus("other", "Other"), // This is not present in their dataset, but is used to show any that don"t match these criteria
 ];
