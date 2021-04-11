@@ -11,20 +11,6 @@ const Home = (props) => {
         Requests from New York State Police Departments
       </p>
       <h2>Explore the data</h2>
-      <p>
-        In response to the Freedom of Information Law Requests, New York State
-        police departments have claimed to have no records (“no documents”) of
-        officer misconduct from the past 50 years.
-      </p>
-      <p>
-        The done status may not mean that the request was successful, Muckrock
-        is restarting some requests from the beginning after having previous
-        requests rejected. The appealing process means that the initial
-        request was rejected and that they are rewriting their argument and a
-        copy of the letter must go to the Committe on Open Government. A
-        lawsuit status indicates that the process has escalated to the
-        courtroom.
-      </p>
       <h3>Timeline of the Request Process</h3>
       <div className="graph graph--bar">
         <ResponsiveBar

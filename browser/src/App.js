@@ -5,7 +5,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import { ResponsiveTreeMap } from "@nivo/treemap";
 import { DateTime } from "luxon";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -105,7 +104,10 @@ function App() {
         <Header />
         <Switch>
           <Route path = "/sandbox">
-            <Sandbox />
+            <Sandbox 
+              data = {data}
+              treeData = {statusGraphData()}
+            />
           </Route>
           <Route path = "/">
             <Home 
