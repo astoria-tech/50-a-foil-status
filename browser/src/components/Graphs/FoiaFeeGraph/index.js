@@ -35,7 +35,7 @@ const FoiaFeeGraph = (props) => {
         <ResponsiveBar
           data={fees}
           isInteractive={false}
-          margin={{ top: 10, right: 100, bottom: 50, left: 100 }}
+          margin={{ top: 10, right: 0, bottom: 50, left: 35 }}
           layout="vertical"
           padding={0.3}
           axisTop={null}
@@ -44,7 +44,7 @@ const FoiaFeeGraph = (props) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Fee Required",
+            legend: "Fee",
             legendPosition: "middle",
             legendOffset: 32,
           }}

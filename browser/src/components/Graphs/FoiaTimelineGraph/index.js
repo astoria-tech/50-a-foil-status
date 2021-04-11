@@ -32,7 +32,7 @@ const FoiaTimelineGraph = (props) => {
         <ResponsiveBar
           data={times}
           isInteractive={false}
-          margin={{ top: 10, right: 100, bottom: 50, left: 100 }}
+          margin={{ top: 10, right: 0, bottom: 50, left: 35 }}
           padding={0.3}
           layout="vertical"
           axisTop={null}
