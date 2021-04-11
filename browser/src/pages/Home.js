@@ -1,7 +1,7 @@
 import React from "react";
 import FoiaList from "../components/FoiaList";
 import FoiaTimelineGraph from "../components/Graphs/FoiaTimelineGraph";
-import { ResponsiveBar } from "@nivo/bar";
+import FoiaFeeGraph from "../components/Graphs/FoiaFeeGraph";
 
 
 const Home = (props) => {
@@ -31,20 +31,9 @@ const Home = (props) => {
       <FoiaTimelineGraph
         data = {props.data}
       />
-      <h3>Fees Charged by agency</h3>
-      <p>
-        Most agencies have not charged fees for their requests and it is not
-        clear how the fees are calculated when there is a required payment.
-      </p>
-      <div className="graph graph--bar">
-        <ResponsiveBar
-          isInteractive={false}
-          margin={{ top: 0, right: 100, bottom: 50, left: 100 }}
-          layout="horizontal"
-          enableLabel={false}
-          data={props.prices}
-        />
-      </div>
+      <FoiaFeeGraph
+        data = {props.data}
+      />
       <h2 id="links_and_references">Links and References</h2>
       <ul>
         <li><a href="https://www.muckrock.com/foi/list/?projects=778" target="_blank">All Requests</a></li>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ResponsiveTreeMap } from "@nivo/treemap";
+import FoiaStatusTreeGraph from "../components/Graphs/FoiaStatusTreeGraph";
 
 
 const Sandbox = (props) => {
@@ -10,20 +10,9 @@ const Sandbox = (props) => {
         police departments have claimed to have no records (“no documents”) of
         officer misconduct from the past 50 years.
       </p>
-      <h2 className="headline__treemap">Statuses</h2>
-      <div className="graph">
-        <ResponsiveTreeMap
-          data={props.treeData}
-          identity="name"
-          value="loc"
-          valueFormat=".02s"
-          margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-          labelSkipSize={12}
-          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.2 ] ] }}
-          parentLabelTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
-          borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.1 ] ] }}
-        />
-      </div>
+      <FoiaStatusTreeGraph 
+        data = {props.data}
+      />
       <p>
         The done status may not mean that the request was successful, Muckrock
         is restarting some requests from the beginning after having previous

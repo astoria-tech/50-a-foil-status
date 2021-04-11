@@ -32,7 +32,7 @@ const FoiaTimelineGraph = (props) => {
         <ResponsiveBar
           data={times}
           isInteractive={false}
-          margin={{ top: 0, right: 100, bottom: 50, left: 100 }}
+          margin={{ top: 10, right: 100, bottom: 50, left: 100 }}
           padding={0.3}
           layout="vertical"
           axisTop={null}
@@ -41,7 +41,7 @@ const FoiaTimelineGraph = (props) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Days to complete",
+            legend: "Days to Complete",
             legendPosition: "middle",
             legendOffset: 32,
           }}
@@ -49,7 +49,7 @@ const FoiaTimelineGraph = (props) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Amount of requests",
+            legend: "Requests",
             legendPosition: "middle",
             legendOffset: -40,
           }}
