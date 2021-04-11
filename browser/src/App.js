@@ -6,23 +6,11 @@ import { ResponsiveTreeMap } from "@nivo/treemap";
 import { DateTime } from "luxon";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import getMuckrockData from "./utils/getMuckrockData";
 import "normalize.css";
 import "./astoria-tech-design.css";
 import "./styles.css";
 
-const getMuckrockData = async () => {
-  // When in production, the API is at the same domain as the frontend
-  let latest;
-  if (process.env.REACT_APP_DEPLOYMENT_MODE === "production") {
-    latest = "/v1/latest";
-  } else {
-    latest = "http://localhost:3001/v1/latest";
-  }
-
-  return await fetch(latest)
-    .then((response) => (response.ok ? response : Promise.reject(response)))
-    .then((response) => response.json());
-};
 
 function App() {
   const { data, error, isLoading } = useAsync({ promiseFn: getMuckrockData });

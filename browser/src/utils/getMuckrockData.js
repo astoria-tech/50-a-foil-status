@@ -12,4 +12,4 @@ const getMuckrockData = async () => {
     .then((response) => response.json());
 };
 
-module.exports = { getMuckrockData };
+export default getMuckrockData;
