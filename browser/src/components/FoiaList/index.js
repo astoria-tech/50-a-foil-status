@@ -14,8 +14,6 @@ const FoiaList = (props) => {
     let isVisible = [0];
     for (let key in filters) {
       if (key === "turnaroundTime" && filters[key]) {
-        console.log(TurnaroundTime.parse(item.foiaReq.datetime_submitted, item.foiaReq.datetime_done))
-        console.log(filters[key])
         isVisible.push(
           TurnaroundTime.parse(item.foiaReq.datetime_submitted, item.foiaReq.datetime_done) === filters[key] ? 0 : 1
         );
