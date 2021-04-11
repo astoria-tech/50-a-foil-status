@@ -93,7 +93,7 @@ function App() {
     }
   });
 
-  const statusGraphData = function statusGraphData() {
+  const statusGraphData = () => {
     // Sweet math here. Return result when done.
     return tmpdata;
   };

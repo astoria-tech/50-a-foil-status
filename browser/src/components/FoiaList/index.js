@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
 import { FoiaStatus } from "../../utils/FoiaStatus";
+import { FeeRange } from "../../utils/FeeRange";
 
 
 const FoiaList = (props) => {
@@ -16,11 +17,8 @@ const FoiaList = (props) => {
           DateTime.fromISO(item.foiaReq.datetime_done).toMillis() > DateTime.fromISO(filters[key]).toMillis() ? 0 : 1
         );
       }
-      else if (key === "price" && filters[key] && filters[key].minimum) {
-        const minFilter = parseFloat(filters[key].minimum);
-        const maxFilter = filters[key].maximum ? parseFloat(filters[key].maximum) : Infinity;
-        const request = parseFloat(item.foiaReq.price);
-        isVisible.push(request >= minFilter && request < maxFilter ? 0 : 1);
+      else if (key === "price" && filters[key]) {
+        isVisible.push(FeeRange.parse(item.foiaReq.price).value === filters[key].value ? 0 : 1);
       }
       else if (key === "status" && filters[key] && filters[key].value) {
         isVisible.push(filters[key].value === item.foiaReq.status ? 0 : 1);
@@ -30,37 +28,7 @@ const FoiaList = (props) => {
   }
   
   filterData.statuses = FoiaStatus.all;
-  filterData.prices = [
-    {
-      label: "No Fee",
-      value: "no_fee",
-      minimum: 0.00,
-      maximum: 0.01, // noninclusive
-    },
-    { 
-      label: "Under $100",
-      value: "under_hundred",
-      minimum: 0.01,
-      maximum: 100.00,
-    },
-    { 
-      label: "$100 to $999",
-      value: "hundred_to_thousand",
-      minimum: 100.00,
-      maximum: 1000.00,
-    },
-    { 
-      label: "$1,000 to $9,999",
-      value: "thousand_to_ten_thousand",
-      minimum: 1000.00,
-      maximum: 10000.00,
-    },
-    { 
-      label: "Over $10,000",
-      value: "over_ten_thousand",
-      minimum: 10000.00,
-    },
-  ];
+  filterData.prices = FeeRange.all;
 
   const dt = DateTime.local();
   filterData.turnaroundTimes = [
