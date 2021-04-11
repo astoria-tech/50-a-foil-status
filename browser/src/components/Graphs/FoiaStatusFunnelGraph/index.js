@@ -4,7 +4,6 @@ import { FoiaStatus } from '../../../utils/FoiaStatus';
 
 
 const FoiaStatusFunnelGraph = (props) => {
-
   const communicationAggregate = FoiaStatus.all.reduce((acc, status) => {
     return acc.set(status.value, 0);
   }, new Map());
