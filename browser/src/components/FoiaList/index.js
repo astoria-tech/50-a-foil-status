@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
-import { FoiaStatuses, convertFoiaStatus } from "./FoiaStatus";
+import { FoiaStatus } from "../../utils/FoiaStatus";
 
 
 const FoiaList = (props) => {
@@ -29,7 +29,7 @@ const FoiaList = (props) => {
     return isVisible.reduce((acc, val) => acc + val) === 0;
   }
   
-  filterData.statuses = Array.from(FoiaStatuses);
+  filterData.statuses = FoiaStatus.all;
   filterData.prices = [
     {
       label: "No Fee",
@@ -137,7 +137,7 @@ const FoiaList = (props) => {
                   <td>{item.foiaReq.datetime_done && (
                     <time dateTime={DateTime.fromISO(item.foiaReq.datetime_done)}>{DateTime.fromISO(item.foiaReq.datetime_done).toLocaleString()}</time>
                   )}</td>
-                  <td>{convertFoiaStatus(item.foiaReq.status).label}</td>
+                  <td>{FoiaStatus.parse(item.foiaReq.status).label}</td>
                   <td>{new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(item.foiaReq.price)}</td>
                 </tr>
               </tbody>
