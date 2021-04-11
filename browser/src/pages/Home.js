@@ -1,11 +1,13 @@
 import React from "react";
 import FoiaList from "../components/FoiaList";
+import FoiaTimelineGraph from "../components/Graphs/FoiaTimelineGraph";
 import { ResponsiveBar } from "@nivo/bar";
 
 
 const Home = (props) => {
   return (
     <main>
+      {/* TODO: Add padding here */}
       <p>
         Visualizing the process of requesting Freedom of Information Law
         Requests from New York State Police Departments
@@ -25,15 +27,10 @@ const Home = (props) => {
         The team at Astoria Digital is using the data from these request to
         create visualizations to show their process in real time.
       </p>
-      <h3 id="links_and_references">Links and References</h3>
-      <ul>
-        <li><a href="https://www.muckrock.com/foi/list/?projects=778" target="_blank">All Requests</a></li>
-        <li><a href="https://www.muckrock.com/project/new-york-officer-misconduct-and-disciplinary-materials-778/" target="_blank">Materials and Articles</a></li>
-        <li><a href="https://github.com/astoria-tech/50-a-foil-status" target="_blank">Github for this project</a></li>
-        <li><a href="https://foil.astoria.digital/" target="_blank">FOIL Requests in New York State</a></li>
-      </ul>
       <h2>Explore the data</h2>
-      
+      <FoiaTimelineGraph
+        data = {props.data}
+      />
       <h3>Fees Charged by agency</h3>
       <p>
         Most agencies have not charged fees for their requests and it is not
@@ -48,6 +45,13 @@ const Home = (props) => {
           data={props.prices}
         />
       </div>
+      <h2 id="links_and_references">Links and References</h2>
+      <ul>
+        <li><a href="https://www.muckrock.com/foi/list/?projects=778" target="_blank">All Requests</a></li>
+        <li><a href="https://www.muckrock.com/project/new-york-officer-misconduct-and-disciplinary-materials-778/" target="_blank">Materials and Articles</a></li>
+        <li><a href="https://github.com/astoria-tech/50-a-foil-status" target="_blank">Github for this project</a></li>
+        <li><a href="https://foil.astoria.digital/" target="_blank">FOIL Requests in New York State</a></li>
+      </ul>
       <FoiaList data={props.data} />
     </main>
   );

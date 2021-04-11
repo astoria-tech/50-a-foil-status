@@ -18,7 +18,7 @@ const FoiaList = (props) => {
         );
       }
       else if (key === "price" && filters[key]) {
-        isVisible.push(FeeRange.parse(item.foiaReq.price).value === filters[key].value ? 0 : 1);
+        isVisible.push(FeeRange.parse(item.foiaReq.price) === filters[key] ? 0 : 1);
       }
       else if (key === "status" && filters[key] && filters[key].value) {
         isVisible.push(filters[key].value === item.foiaReq.status ? 0 : 1);

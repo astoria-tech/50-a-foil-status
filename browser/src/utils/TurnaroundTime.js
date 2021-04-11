@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 
 const turnaroundShortLabel = (label, minimum, maximum) => {
   if (minimum) {
-    return maximum ? `${minimum}-${maximum}` : `+${minimum}`;
+    return maximum ? `${minimum}-${maximum}` : `${minimum}+`;
   } else {
     return label;
   }
@@ -12,7 +12,7 @@ const turnaroundShortLabel = (label, minimum, maximum) => {
 const makeTurnaroundTime = (value, label, minimum, maximum) => {
   return {
     value: value,
-    shortLabel: turnaroundShortLabel(minimum, maximum),
+    shortLabel: turnaroundShortLabel(label, minimum, maximum),
     label: label,
     minimum: minimum, //measured in days, inclusive
     maximum: maximum, //measured in days, inclusive
@@ -48,7 +48,7 @@ const parse = (start, end) => {
     return TurnaroundTimeList.find((time) => {
       if (time.minimum) {
         return time.maximum ? time.maximum >= diff && time.minimum <= diff : time.minimum <= diff;
-      } else false;
+      } else return false;
     });
   } else {
     return TurnaroundTimes.Outstanding;
