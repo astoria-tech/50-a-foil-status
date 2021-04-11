@@ -5,7 +5,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import { DateTime } from "luxon";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";

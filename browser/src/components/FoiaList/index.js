@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { DateTime } from "luxon";
 import { FoiaStatus } from "../../utils/FoiaStatus";
 import { FeeRange } from "../../utils/FeeRange";
+import { TurnaroundTime } from "../../utils/TurnaroundTime";
 
 
 const FoiaList = (props) => {
@@ -12,9 +13,11 @@ const FoiaList = (props) => {
     if (!Object.getOwnPropertyNames(filters).length) return true;
     let isVisible = [0];
     for (let key in filters) {
-      if (item.foiaReq.datetime_done && key === "turnaroundTime") {
+      if (key === "turnaroundTime" && filters[key]) {
+        console.log(TurnaroundTime.parse(item.foiaReq.datetime_submitted, item.foiaReq.datetime_done))
+        console.log(filters[key])
         isVisible.push(
-          DateTime.fromISO(item.foiaReq.datetime_done).toMillis() > DateTime.fromISO(filters[key]).toMillis() ? 0 : 1
+          TurnaroundTime.parse(item.foiaReq.datetime_submitted, item.foiaReq.datetime_done) === filters[key] ? 0 : 1
         );
       }
       else if (key === "price" && filters[key]) {
@@ -29,26 +32,7 @@ const FoiaList = (props) => {
   
   filterData.statuses = FoiaStatus.all;
   filterData.prices = FeeRange.all;
-
-  const dt = DateTime.local();
-  filterData.turnaroundTimes = [
-    {
-      label: "Over a month",
-      value: dt.minus({days: 30}).toISO(),
-    },
-    {
-      label: "Over three months",
-      value: dt.minus({days: 90}).toISO(),
-    },
-    {
-      label: "Over five months",
-      value: dt.minus({days: 150}).toISO(),
-    },
-    {
-      label: "Over eight months",
-      value: dt.minus({days: 210}).toISO(),
-    }
-  ];
+  filterData.turnaroundTimes = TurnaroundTime.all;
 
   return (
     <div className="foia-list">
@@ -75,7 +59,7 @@ const FoiaList = (props) => {
           </label>
           <label htmlFor="foia-list-turnaround">
             Turnaround time:
-            <select id="foia-list-turnaround" onChange={event => setFilters({...filters, turnaroundTime: event.target.value})}>
+            <select id="foia-list-turnaround" onChange={event => setFilters({...filters, turnaroundTime: filterData.turnaroundTimes.find(time => time.value === event.target.value)})}>
               <option value="" key="no-date">Select a date…</option>
               {filterData.turnaroundTimes.map(time => (
                 <option value={time.value} key={time.label}>{time.label}</option>
