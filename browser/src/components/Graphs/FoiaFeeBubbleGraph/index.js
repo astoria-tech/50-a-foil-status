@@ -22,6 +22,7 @@ const FoiaFeeBubbleGraph = (props) => {
 
   const feeStatuses = props.data.foiaList.filter((item) => item.foiaReq.price > 0).map((item) => {
     const status = FoiaStatus.parse(item.foiaReq.status);
+    const fee = new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(item.foiaReq.price);
     return {
       id: item.agency.agencyName,
       paid: paidStatuses.find((foiaStatus) => status.value === foiaStatus.value) ? 'paid': 'unpaid',
@@ -62,6 +63,9 @@ const FoiaFeeBubbleGraph = (props) => {
           leavesOnly={true}
           enableLabel={false}
           colors={{ scheme: 'pastel1' }}
+          tooltipFormat={value =>
+            new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(value)
+          }
         />
       </div>
     </div>
