@@ -22,9 +22,8 @@ const FoiaFeeBubbleGraph = (props) => {
 
   const feeStatuses = props.data.foiaList.filter((item) => item.foiaReq.price > 0).map((item) => {
     const status = FoiaStatus.parse(item.foiaReq.status);
-    const fee = new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(item.foiaReq.price);
     return {
-      id: item.agency.agencyName,
+      id: item.jurisdiction.jurisdictionName,
       paid: paidStatuses.find((foiaStatus) => status.value === foiaStatus.value) ? 'paid': 'unpaid',
       value: item.foiaReq.price,
     };
@@ -57,15 +56,16 @@ const FoiaFeeBubbleGraph = (props) => {
           labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 0.8 ] ] }}
           borderWidth={2}
           borderColor={{ from: 'color' }}
-          animate={true}
+          animate={false}
           motionStiffness={50}
           motionDamping={30}
           leavesOnly={true}
-          enableLabel={false}
+          enableLabel={true}
           colors={{ scheme: 'pastel1' }}
           tooltipFormat={value =>
             new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(value)
           }
+          labelSkipRadius={24}
         />
       </div>
     </div>
