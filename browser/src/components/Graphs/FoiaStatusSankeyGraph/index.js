@@ -66,15 +66,11 @@ const FoiaStatusSankeyGraph = (props) => {
     });
   };
 
-  console.log(communicationHistory)
-
   // TODO: Figure out labels
   const statusHistory = {
     nodes: sankeyOrderedStatuses.map(status => { return { id: status.value } }),
     links: extractLinks(communicationHistory),
   };
-
-  console.log(statusHistory)
 
   return (
     <div className="sankey">

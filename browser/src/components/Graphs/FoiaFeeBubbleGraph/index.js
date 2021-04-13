@@ -8,44 +8,35 @@ const FoiaFeeBubbleGraph = (props) => {
     FoiaStatus.Lawsuit,
     FoiaStatus.NoDocs,
     FoiaStatus.Done,
-    FoiaStatus.Processed,
+    FoiaStatus.Fix,
+    FoiaStatus.Rejected,
   ];
 
   const unpaidStatuses = [
     FoiaStatus.Ack,
-    FoiaStatus.Fix,
+    FoiaStatus.Processed,
     FoiaStatus.Appealing,
     FoiaStatus.Abandoned,
-    FoiaStatus.Rejected,
     FoiaStatus.Payment,
   ];
 
-  const statusColors = Map([
-    [FoiaStatus.Ack.value, "black"],
-    [FoiaStatus.Processed.value, "blue"],
-    [FoiaStatus.Done.value, "green"],
-    [FoiaStatus.Rejected.value, "red"],
-    [FoiaStatus.Fix.value, "pink"],
-    [FoiaStatus.Payment.value, "yellow"],
-    [FoiaStatus.NoDocs.value, "orange"],
-    [FoiaStatus.Partial.value, "cyan"],
-    [FoiaStatus.Appealing.value, "purple"],
-    [FoiaStatus.Lawsuit.value, "pink"],
-    [FoiaStatus.Abandoned.value, "gray"],
-  ]);
-
-  const feeStatuses = props.data.foiaList.filter(item.foiaReq.price > 0).map((item) => {
+  const feeStatuses = props.data.foiaList.filter((item) => item.foiaReq.price > 0).map((item) => {
     const status = FoiaStatus.parse(item.foiaReq.status);
     return {
       id: item.agency.agencyName,
-      color: statusColors.get(status.value),
+      paid: paidStatuses.find((foiaStatus) => status.value === foiaStatus.value) ? 'paid': 'unpaid',
       value: item.foiaReq.price,
     };
+  }).sort((a, b) => { 
+    // In order to get the colors right, all the unpaid elements have to be sorted first
+    // This ensures that similar sized fee requests get different colors since they're processed iteratively
+    if (a.paid === 'unpaid' && b.paid === 'paid') return -1;
+    else if (a.paid === 'paid' && b.paid === 'unpaid') return 1;
+    else return 0;
   });
 
   const fees = {
-    id: "total",
-    color: "white",
+    id: 'total',
     children: feeStatuses,
   }
 
@@ -60,16 +51,21 @@ const FoiaFeeBubbleGraph = (props) => {
         <ResponsiveBubble
           root={fees}
           margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-          colors={{ scheme: 'nivo' }}
           padding={6}
+          colorBy='id'
           labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 0.8 ] ] }}
           borderWidth={2}
           borderColor={{ from: 'color' }}
           animate={true}
-          motionStiffness={90}
-          motionDamping={12}
+          motionStiffness={50}
+          motionDamping={30}
+          leavesOnly={true}
+          enableLabel={false}
+          colors={{ scheme: 'pastel1' }}
         />
       </div>
     </div>
   );
 };
+
+export default FoiaFeeBubbleGraph;
