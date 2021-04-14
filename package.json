@@ -1,0 +1,11 @@
+{
+  "name": "50-a-foil-status",
+  "scripts": {
+    "preinstall": "npm -C server install && npm -C browser install",
+    "start": "pm2 --name server start 'npm -C server run dev' && pm2 --name browser start 'npm -C browser start'",
+    "stop": "pm2 delete server browser"
+  },
+  "dependencies": {
+    "pm2": "^4.5.5"
+  }
+}
