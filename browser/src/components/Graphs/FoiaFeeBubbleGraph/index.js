@@ -50,13 +50,12 @@ const FoiaFeeBubbleGraph = (props) => {
       <div className="graph">
         <ResponsiveBubble
           root={fees}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           padding={6}
           colorBy='id'
-          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 0.8 ] ] }}
-          borderWidth={2}
-          borderColor={{ from: 'color' }}
+          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.5 ] ] }}
           animate={false}
+          isZoomable={false}
           motionStiffness={50}
           motionDamping={30}
           leavesOnly={true}
