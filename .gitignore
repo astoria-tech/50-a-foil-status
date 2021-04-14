@@ -1,2 +1,4 @@
 server/src/datastore/data
 .env
+.DS_Store
+node_modules

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
-import { FoiaStatuses, convertFoiaStatus } from "./FoiaStatus";
+import { FoiaStatus } from "../../utils/FoiaStatus";
+import { FeeRange } from "../../utils/FeeRange";
+import { TurnaroundTime } from "../../utils/TurnaroundTime";
 
 
 const FoiaList = (props) => {
@@ -11,16 +13,13 @@ const FoiaList = (props) => {
     if (!Object.getOwnPropertyNames(filters).length) return true;
     let isVisible = [0];
     for (let key in filters) {
-      if (item.foiaReq.datetime_done && key === "turnaroundTime") {
+      if (key === "turnaroundTime" && filters[key]) {
         isVisible.push(
-          DateTime.fromISO(item.foiaReq.datetime_done).toMillis() > DateTime.fromISO(filters[key]).toMillis() ? 0 : 1
+          TurnaroundTime.parse(item.foiaReq.datetime_submitted, item.foiaReq.datetime_done) === filters[key] ? 0 : 1
         );
       }
-      else if (key === "price" && filters[key] && filters[key].minimum) {
-        const minFilter = parseFloat(filters[key].minimum);
-        const maxFilter = filters[key].maximum ? parseFloat(filters[key].maximum) : Infinity;
-        const request = parseFloat(item.foiaReq.price);
-        isVisible.push(request >= minFilter && request < maxFilter ? 0 : 1);
+      else if (key === "price" && filters[key]) {
+        isVisible.push(FeeRange.parse(item.foiaReq.price) === filters[key] ? 0 : 1);
       }
       else if (key === "status" && filters[key] && filters[key].value) {
         isVisible.push(filters[key].value === item.foiaReq.status ? 0 : 1);
@@ -29,58 +28,9 @@ const FoiaList = (props) => {
     return isVisible.reduce((acc, val) => acc + val) === 0;
   }
   
-  filterData.statuses = Array.from(FoiaStatuses);
-  filterData.prices = [
-    {
-      label: "No Fee",
-      value: "no_fee",
-      minimum: 0.00,
-      maximum: 0.01, // noninclusive
-    },
-    { 
-      label: "Under $100",
-      value: "under_hundred",
-      minimum: 0.01,
-      maximum: 100.00,
-    },
-    { 
-      label: "$100 to $999",
-      value: "hundred_to_thousand",
-      minimum: 100.00,
-      maximum: 1000.00,
-    },
-    { 
-      label: "$1,000 to $9,999",
-      value: "thousand_to_ten_thousand",
-      minimum: 1000.00,
-      maximum: 10000.00,
-    },
-    { 
-      label: "Over $10,000",
-      value: "over_ten_thousand",
-      minimum: 10000.00,
-    },
-  ];
-
-  const dt = DateTime.local();
-  filterData.turnaroundTimes = [
-    {
-      label: "Over a month",
-      value: dt.minus({days: 30}).toISO(),
-    },
-    {
-      label: "Over three months",
-      value: dt.minus({days: 90}).toISO(),
-    },
-    {
-      label: "Over five months",
-      value: dt.minus({days: 150}).toISO(),
-    },
-    {
-      label: "Over eight months",
-      value: dt.minus({days: 210}).toISO(),
-    }
-  ];
+  filterData.statuses = FoiaStatus.all;
+  filterData.prices = FeeRange.all;
+  filterData.turnaroundTimes = TurnaroundTime.all;
 
   return (
     <div className="foia-list">
@@ -107,7 +57,7 @@ const FoiaList = (props) => {
           </label>
           <label htmlFor="foia-list-turnaround">
             Turnaround time:
-            <select id="foia-list-turnaround" onChange={event => setFilters({...filters, turnaroundTime: event.target.value})}>
+            <select id="foia-list-turnaround" onChange={event => setFilters({...filters, turnaroundTime: filterData.turnaroundTimes.find(time => time.value === event.target.value)})}>
               <option value="" key="no-date">Select a date…</option>
               {filterData.turnaroundTimes.map(time => (
                 <option value={time.value} key={time.label}>{time.label}</option>
@@ -137,7 +87,7 @@ const FoiaList = (props) => {
                   <td>{item.foiaReq.datetime_done && (
                     <time dateTime={DateTime.fromISO(item.foiaReq.datetime_done)}>{DateTime.fromISO(item.foiaReq.datetime_done).toLocaleString()}</time>
                   )}</td>
-                  <td>{convertFoiaStatus(item.foiaReq.status).label}</td>
+                  <td>{FoiaStatus.parse(item.foiaReq.status).label}</td>
                   <td>{new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(item.foiaReq.price)}</td>
                 </tr>
               </tbody>
