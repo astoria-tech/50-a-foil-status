@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
-import { FoiaStatus } from '../../../utils/FoiaStatus';
+import FoiaStatus from '../../../utils/FoiaStatus';
 
 
 const FoiaStatusPieGraph = (props) => {
@@ -24,15 +24,11 @@ const FoiaStatusPieGraph = (props) => {
 
   return (
     <div className="statusPie">
-      <p>
-        In response to the Freedom of Information Law Requests, New York State
-        police departments have claimed to have no records (“no documents”) of
-        officer misconduct from the past 50 years.
-      </p>
-      <div className="graph">
+      <h2 className="headline">Request Status</h2>
+      <div className="graph graph--circular">
         <ResponsivePie
           data={statuses}
-          margin={{ top: 40, right: 80, bottom: 80, left: 120 }}
+          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           innerRadius={0.5}
           padAngle={0.7}
           cornerRadius={3}
@@ -41,6 +37,11 @@ const FoiaStatusPieGraph = (props) => {
           sortByValue={true}
         />
       </div>
+      <p>
+        In response to the Freedom of Information Law Requests, New York State
+        police departments have claimed to have no records (“no documents”) of
+        officer misconduct from the past 50 years.
+      </p>
       <p>
         The done status may not mean that the request was successful, Muckrock
         is restarting some requests from the beginning after having previous

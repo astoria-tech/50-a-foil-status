@@ -1,7 +1,7 @@
 import React from "react";
 import FoiaList from "../components/FoiaList";
 import FoiaTimelineGraph from "../components/Graphs/FoiaTimelineGraph";
-import FoiaFeeGraph from "../components/Graphs/FoiaFeeGraph";
+import FoiaFeeBubbleGraph from "../components/Graphs/FoiaFeeBubbleGraph";
 
 
 const Home = (props) => {
@@ -31,7 +31,7 @@ const Home = (props) => {
       <FoiaTimelineGraph
         data = {props.data}
       />
-      <FoiaFeeGraph
+      <FoiaFeeBubbleGraph
         data = {props.data}
       />
       <h2 id="links_and_references">Links and References</h2>

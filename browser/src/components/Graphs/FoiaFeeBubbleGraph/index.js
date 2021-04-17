@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResponsiveBubble } from '@nivo/circle-packing';
-import { FoiaStatus } from '../../../utils/FoiaStatus';
+import FoiaStatus from '../../../utils/FoiaStatus';
+import DonatelloColors from '../../../utils/DonatelloColors';
 
 const FoiaFeeBubbleGraph = (props) => {
   const paidStatuses = [
@@ -19,39 +20,6 @@ const FoiaFeeBubbleGraph = (props) => {
     FoiaStatus.Abandoned,
     FoiaStatus.Payment,
   ]; */
-
-  /* const feeColors = [
-    `hsla(29, 100%, 50%, 1)`, //orange
-    `hsla(212, 71%, 46%, 1)`, //blu
-    `hsla(51, 100%, 50%, 1)`, //yelo
-    `hsla(309, 45%, 50%, 1)`, //purp
-    `hsla(285, 35%, 36%, 1)`, //deep purple
-    `hsla(339, 74%, 57%, 1)`, //pinko
-    `hsla(7, 100%, 50%, 1)`, //soviet
-    `hsla(144, 43%, 50%, 1)`, //gren
-  ]; */
-
-  /* const feeColors = [
-    `hsla(212, 71%, 46%, 1)`, //blu
-    `hsla(144, 43%, 50%, 1)`, //gren
-    `hsla(51, 100%, 50%, 1)`, //yelo
-    `hsla(29, 100%, 50%, 1)`, //orange
-    `hsla(7, 100%, 50%, 1)`, //soviet
-    `hsla(339, 74%, 57%, 1)`, //pinko
-    `hsla(309, 45%, 50%, 1)`, //purp
-    `hsla(285, 35%, 36%, 1)`, //deep purple
-  ]; */
-
-  const feeColors = [
-    `hsla(144, 43%, 50%, 1)`, //gren
-    `hsla(51, 100%, 50%, 1)`, //yelo
-    `hsla(309, 45%, 50%, 1)`, //purp
-    `hsla(309, 45%, 50%, 0.5)`, //light purp
-    `hsla(285, 39%, 49%, 1)`, //deep purple
-    `hsla(285, 39%, 49%, 0.5)`, //light deep purple
-    `hsla(76, 56%, 47%, 1)`, // header green
-    `hsla(76, 56%, 47%, 0.5)`, // light header green
-  ];
 
   const feeStatuses = props.data.foiaList.filter((item) => item.foiaReq.price > 0).map((item) => {
     const status = FoiaStatus.parse(item.foiaReq.status);
@@ -72,12 +40,13 @@ const FoiaFeeBubbleGraph = (props) => {
 
   return(
     <div className="feeGraph">
-      <h3>Fees Charged by agency</h3>
+      <h2 className="headline">Fees Charged by Agency</h2>
       <p>
-        Most agencies have not charged fees for their requests and it is not
-        clear how the fees are calculated when there is a required payment.
+        Agencies are allowed to charge "reasonable" fees for any requests
+        that take more than 2 hours to complete. However, different departments
+        have different perspectives on what fee is reasonable.
       </p>
-      <div className="graph">
+      <div className="graph graph--circular">
         <ResponsiveBubble
           root={fees}
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
@@ -92,7 +61,7 @@ const FoiaFeeBubbleGraph = (props) => {
           motionDamping={30}
           leavesOnly={true}
           enableLabel={true}
-          colors={feeColors.reverse()}
+          colors={DonatelloColors.colorTints.reverse().map(color => color.hsl().string())}
           tooltip={node => (
             <span>
                 {node.data.label}: {new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(node.data.value)}
@@ -101,6 +70,13 @@ const FoiaFeeBubbleGraph = (props) => {
           labelSkipRadius={44}
         />
       </div>
+      <p>
+        Some agencies charge only nominal fees to cover cost of printing and mailing documentation.
+      </p>
+      <p>
+        Other agencies require the entire process to be overseen by a police captain
+        and demand compensation for the cost of a captain's wages. 
+      </p>
     </div>
   );
 };

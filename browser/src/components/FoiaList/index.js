@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
-import { FoiaStatus } from "../../utils/FoiaStatus";
-import { FeeRange } from "../../utils/FeeRange";
-import { TurnaroundTime } from "../../utils/TurnaroundTime";
+import FoiaStatus from "../../utils/FoiaStatus";
+import FeeRange from "../../utils/FeeRange";
+import TurnaroundTime from "../../utils/TurnaroundTime";
 
 
 const FoiaList = (props) => {

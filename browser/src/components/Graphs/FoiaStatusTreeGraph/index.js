@@ -15,7 +15,6 @@ const FoiaStatusTreeGraph = (props) => {
 
   return (
     <div className = "treeMapGraph">
-      <h2 className="headline__treemap">Statuses</h2>
       <div className="graph">
         <ResponsiveTreeMap
           data={statusGraphData()}

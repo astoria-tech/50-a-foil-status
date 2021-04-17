@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveFunnel } from '@nivo/funnel';
-import { FoiaStatus } from '../../../utils/FoiaStatus';
+import FoiaStatus from '../../../utils/FoiaStatus';
 
 
 const FoiaStatusFunnelGraph = (props) => {
@@ -45,11 +45,11 @@ const FoiaStatusFunnelGraph = (props) => {
   };
 
   return (
-    <div className="statusFunnel">
+    <div className="statusFunnel">      
       <div className="graph">
         <ResponsiveFunnel
           data={happyFunnel(communicationAggregate)}
-          margin={{ top: 10, right: 0, bottom: 50, left: 35 }}
+          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           isInteractive={true}
           padding={0.3}
           borderWidth={20}
@@ -67,7 +67,7 @@ const FoiaStatusFunnelGraph = (props) => {
       <div className="graph">
         <ResponsiveFunnel
           data={bumpyFunnel(communicationAggregate)}
-          margin={{ top: 10, right: 0, bottom: 50, left: 35 }}
+          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           isInteractive={true}
           padding={0.3}
           borderWidth={20}
