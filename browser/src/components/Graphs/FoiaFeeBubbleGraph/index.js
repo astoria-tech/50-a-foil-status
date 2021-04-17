@@ -12,27 +12,57 @@ const FoiaFeeBubbleGraph = (props) => {
     FoiaStatus.Rejected,
   ];
 
-  const unpaidStatuses = [
+  /* const unpaidStatuses = [
     FoiaStatus.Ack,
     FoiaStatus.Processed,
     FoiaStatus.Appealing,
     FoiaStatus.Abandoned,
     FoiaStatus.Payment,
+  ]; */
+
+  /* const feeColors = [
+    `hsla(29, 100%, 50%, 1)`, //orange
+    `hsla(212, 71%, 46%, 1)`, //blu
+    `hsla(51, 100%, 50%, 1)`, //yelo
+    `hsla(309, 45%, 50%, 1)`, //purp
+    `hsla(285, 35%, 36%, 1)`, //deep purple
+    `hsla(339, 74%, 57%, 1)`, //pinko
+    `hsla(7, 100%, 50%, 1)`, //soviet
+    `hsla(144, 43%, 50%, 1)`, //gren
+  ]; */
+
+  /* const feeColors = [
+    `hsla(212, 71%, 46%, 1)`, //blu
+    `hsla(144, 43%, 50%, 1)`, //gren
+    `hsla(51, 100%, 50%, 1)`, //yelo
+    `hsla(29, 100%, 50%, 1)`, //orange
+    `hsla(7, 100%, 50%, 1)`, //soviet
+    `hsla(339, 74%, 57%, 1)`, //pinko
+    `hsla(309, 45%, 50%, 1)`, //purp
+    `hsla(285, 35%, 36%, 1)`, //deep purple
+  ]; */
+
+  const feeColors = [
+    `hsla(144, 43%, 50%, 1)`, //gren
+    `hsla(51, 100%, 50%, 1)`, //yelo
+    `hsla(309, 45%, 50%, 1)`, //purp
+    `hsla(309, 45%, 50%, 0.5)`, //light purp
+    `hsla(285, 39%, 49%, 1)`, //deep purple
+    `hsla(285, 39%, 49%, 0.5)`, //light deep purple
+    `hsla(76, 56%, 47%, 1)`, // header green
+    `hsla(76, 56%, 47%, 0.5)`, // light header green
   ];
 
   const feeStatuses = props.data.foiaList.filter((item) => item.foiaReq.price > 0).map((item) => {
     const status = FoiaStatus.parse(item.foiaReq.status);
     return {
-      id: item.jurisdiction.jurisdictionName,
+      id: item.foiaReq.id,
+      label: item.jurisdiction.jurisdictionName,
       paid: paidStatuses.find((foiaStatus) => status.value === foiaStatus.value) ? 'paid': 'unpaid',
       value: item.foiaReq.price,
     };
   }).sort((a, b) => { 
-    // In order to get the colors right, all the unpaid elements have to be sorted first
-    // This ensures that similar sized fee requests get different colors since they're processed iteratively
-    if (a.paid === 'unpaid' && b.paid === 'paid') return -1;
-    else if (a.paid === 'paid' && b.paid === 'unpaid') return 1;
-    else return 0;
+    return a.value < b.value
   });
 
   const fees = {
@@ -52,19 +82,23 @@ const FoiaFeeBubbleGraph = (props) => {
           root={fees}
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           padding={6}
+          identity='id'
           colorBy='id'
-          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.5 ] ] }}
+          label={node => node.data.label}
+          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 2.0 ] ] }}
           animate={false}
-          isZoomable={false}
+          isZoomable={false} 
           motionStiffness={50}
           motionDamping={30}
           leavesOnly={true}
           enableLabel={true}
-          colors={{ scheme: 'pastel1' }}
-          tooltipFormat={value =>
-            new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(value)
-          }
-          labelSkipRadius={24}
+          colors={feeColors.reverse()}
+          tooltip={node => (
+            <span>
+                {node.data.label}: {new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(node.data.value)}
+            </span>
+          )}
+          labelSkipRadius={44}
         />
       </div>
     </div>
