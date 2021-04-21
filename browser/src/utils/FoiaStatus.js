@@ -58,4 +58,4 @@ const FoiaStatus = {
   parse: parse,
 };
 
-export { FoiaStatus };
+export default FoiaStatus;

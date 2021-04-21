@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 
 
-const turnaroundShortLabel = (label, minimum, maximum) => {
+const turnaroundShortLabel = (label = "", minimum, maximum) => {
   if (minimum) {
     return maximum ? `${minimum}-${maximum}` : `${minimum}+`;
   } else {
@@ -9,7 +9,7 @@ const turnaroundShortLabel = (label, minimum, maximum) => {
   }
 };
 
-const makeTurnaroundTime = (value, label, minimum, maximum) => {
+const makeTurnaroundTime = (value = 0, label = "", minimum = 0, maximum = 0) => {
   return {
     value: value,
     shortLabel: turnaroundShortLabel(label, minimum, maximum),
@@ -67,4 +67,4 @@ const TurnaroundTime = {
   parse: parse,
 }
 
-export { TurnaroundTime };
+export default TurnaroundTime;

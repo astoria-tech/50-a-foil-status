@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveSankey } from '@nivo/sankey';
-import { FoiaStatus } from '../../../utils/FoiaStatus';
+import FoiaStatus from '../../../utils/FoiaStatus';
 
 
 const FoiaStatusSankeyGraph = (props) => {
@@ -77,7 +77,7 @@ const FoiaStatusSankeyGraph = (props) => {
       <div className="graph">
         <ResponsiveSankey
           data={statusHistory}
-          margin={{ top: 40, right: 160, bottom: 40, left: 50 }}
+          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           align="justify"
           layout="vertical"
           sort="input"

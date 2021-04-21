@@ -41,4 +41,4 @@ const FeeRange = {
   parse: parse,
 };
 
-export { FeeRange };
+export default FeeRange;

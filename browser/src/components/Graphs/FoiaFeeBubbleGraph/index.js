@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResponsiveBubble } from '@nivo/circle-packing';
-import { FoiaStatus } from '../../../utils/FoiaStatus';
+import FoiaStatus from '../../../utils/FoiaStatus';
+import DonatelloColors from '../../../utils/DonatelloColors';
 
 const FoiaFeeBubbleGraph = (props) => {
   const paidStatuses = [
@@ -12,27 +13,24 @@ const FoiaFeeBubbleGraph = (props) => {
     FoiaStatus.Rejected,
   ];
 
-  const unpaidStatuses = [
+  /* const unpaidStatuses = [
     FoiaStatus.Ack,
     FoiaStatus.Processed,
     FoiaStatus.Appealing,
     FoiaStatus.Abandoned,
     FoiaStatus.Payment,
-  ];
+  ]; */
 
   const feeStatuses = props.data.foiaList.filter((item) => item.foiaReq.price > 0).map((item) => {
     const status = FoiaStatus.parse(item.foiaReq.status);
     return {
-      id: item.jurisdiction.jurisdictionName,
+      id: item.foiaReq.id,
+      label: item.jurisdiction.jurisdictionName,
       paid: paidStatuses.find((foiaStatus) => status.value === foiaStatus.value) ? 'paid': 'unpaid',
       value: item.foiaReq.price,
     };
   }).sort((a, b) => { 
-    // In order to get the colors right, all the unpaid elements have to be sorted first
-    // This ensures that similar sized fee requests get different colors since they're processed iteratively
-    if (a.paid === 'unpaid' && b.paid === 'paid') return -1;
-    else if (a.paid === 'paid' && b.paid === 'unpaid') return 1;
-    else return 0;
+    return a.value < b.value
   });
 
   const fees = {
@@ -42,31 +40,43 @@ const FoiaFeeBubbleGraph = (props) => {
 
   return(
     <div className="feeGraph">
-      <h3>Fees Charged by agency</h3>
+      <h2 className="headline">Fees Charged by Agency</h2>
       <p>
-        Most agencies have not charged fees for their requests and it is not
-        clear how the fees are calculated when there is a required payment.
+        Agencies are allowed to charge "reasonable" fees for any requests
+        that take more than 2 hours to complete. However, different departments
+        have different perspectives on what fee is reasonable.
       </p>
-      <div className="graph">
+      <div className="graph graph--circular">
         <ResponsiveBubble
           root={fees}
           margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
           padding={6}
+          identity='id'
           colorBy='id'
-          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.5 ] ] }}
+          label={node => node.data.label}
+          labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 2.0 ] ] }}
           animate={false}
-          isZoomable={false}
+          isZoomable={false} 
           motionStiffness={50}
           motionDamping={30}
           leavesOnly={true}
           enableLabel={true}
-          colors={{ scheme: 'pastel1' }}
-          tooltipFormat={value =>
-            new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(value)
-          }
-          labelSkipRadius={24}
+          colors={DonatelloColors.colorTints.reverse().map(color => color.hsl().string())}
+          tooltip={node => (
+            <span>
+                {node.data.label}: {new Intl.NumberFormat(navigator.language, {style: "currency", currency: "USD"}).format(node.data.value)}
+            </span>
+          )}
+          labelSkipRadius={44}
         />
       </div>
+      <p>
+        Some agencies charge only nominal fees to cover cost of printing and mailing documentation.
+      </p>
+      <p>
+        Other agencies require the entire process to be overseen by a police captain
+        and demand compensation for the cost of a captain's wages. 
+      </p>
     </div>
   );
 };
