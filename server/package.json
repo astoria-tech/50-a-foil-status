@@ -9,7 +9,8 @@
     "datastore:init": "node src/datastore/scripts/populateFoia/init.js",
     "datastore:init:quick": "node src/datastore/scripts/populateFoia/quick.js",
     "metadata:init": "node src/datastore/scripts/populateMetadata/init.js",
-    "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit"
+    "test": "NODE_ENV=test mocha 'src/**/*.test.js' --inline-diffs --exit",
+    "lint": "eslint src/*.js"
   },
   "dependencies": {
     "axios": "^0.20.0",
@@ -28,7 +29,9 @@
     "node-cron": "^2.0.3",
     "nodemon": "^2.0.4",
     "pg": "^8.3.0",
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.3.4",
+    "winston": "^3.3.3",
+    "winston-slack-webhook-transport": "^2.0.1"
   },
   "devDependencies": {
     "prettier": "^2.0.5",
