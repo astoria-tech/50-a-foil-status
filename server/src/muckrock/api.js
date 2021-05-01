@@ -76,7 +76,7 @@ const getJurisdiction = async (id) => {
     .then((response) => response.data);
 };
 
-module.exports = { 
+module.exports = {
   get: get,
   paginateGet: paginateGet,
   getFoiaRequests: getFoiaRequests,

@@ -1,11 +1,12 @@
 const write = require('../../fileDatastore/write');
-const { DATASTORE_PATH: dirname } = require("../constants");
+const { DATASTORE_PATH: dirname } = require('../constants');
 const { OFFICER_ACCOUNTABILITY_NY } = require('../constants');
 const retrieveFoia = require('./retrieveFoia');
 const readMetadata = require('./readMetadata');
+const logger = require('../../../logger');
 
 const populateFoia = async () => {
-  console.log('Populating FOIA datastore...');
+  logger.info('Populating FOIA datastore...');
 
   try {
     readMetadata()
@@ -16,7 +17,7 @@ const populateFoia = async () => {
         write(completeFoiaList, dirname);
       });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
 };
 
