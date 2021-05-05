@@ -3,9 +3,18 @@
   "scripts": {
     "preinstall": "npm -C server install && npm -C browser install",
     "start": "pm2 --name server start 'npm -C server run dev' && pm2 --name browser start 'npm -C browser start'",
-    "stop": "pm2 delete server browser"
+    "stop": "pm2 delete server browser",
+    "lint": "npm -C server run lint && npm -C browser run lint"
   },
   "dependencies": {
     "pm2": "^4.5.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }
